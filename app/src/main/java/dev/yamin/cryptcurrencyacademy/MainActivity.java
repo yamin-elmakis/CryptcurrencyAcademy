@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
     // test
 
+    //wazap
+
     // https://api.binance.com
 
     // https://api.binance.com/api/v1/exchangeInfo
