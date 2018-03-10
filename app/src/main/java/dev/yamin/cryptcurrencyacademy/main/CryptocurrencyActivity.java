@@ -1,15 +1,17 @@
-package dev.yamin.cryptcurrencyacademy;
+package dev.yamin.cryptcurrencyacademy.main;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+import dev.yamin.cryptcurrencyacademy.R;
+import dev.yamin.cryptcurrencyacademy.base.BaseActivity;
+
+public class CryptocurrencyActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-// test
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -45,17 +47,4 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // hey
-
-    //wazap
-
-    // https://api.binance.com
-
-    // https://api.binance.com/api/v1/exchangeInfo
-
-    // https://api.binance.com/api/v1/ticker/24hr?symbol=LTCUSDT
-
-    // https://api.binance.com/api/v3/ticker/price?symbol=LTCUSDT
-
-    // https://api.binance.com/api/v1/klines?symbol=LTCUSDT&interval=5m&limit=5
 }
