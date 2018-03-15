@@ -48,7 +48,7 @@ public class RequestBuilder{
     }
 
 
-    public void execute(RequestManager mRequest){
+    private void execute(RequestManager mRequest){
             VolleySingleton.getInstance(mContext).addToRequestQueue(mRequest);
     }
 
