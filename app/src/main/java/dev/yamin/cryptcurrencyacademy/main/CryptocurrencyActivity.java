@@ -10,6 +10,7 @@ import android.view.View;
 
 import dev.yamin.cryptcurrencyacademy.R;
 import dev.yamin.cryptcurrencyacademy.base.BaseActivity;
+import dev.yamin.cryptcurrencyacademy.network.VolleySingleton;
 
 public class CryptocurrencyActivity extends BaseActivity {
 
