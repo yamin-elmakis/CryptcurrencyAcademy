@@ -5,9 +5,13 @@ import android.content.Context;
 import com.android.volley.Request;
 import com.android.volley.Response;
 
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by yuval on 09/01/2018.
@@ -30,9 +34,22 @@ public class RequestBuilder{
         return mInstance;
     }
 
+    public void GenerateKLinesRequest(String symbol,String interval,String limit,Response.Listener responseListener, Response.ErrorListener errorListener,GsonJsonParser gsonJsonParser){
+        Map<String,String> params = new HashMap<>();
+        params.put("symbol",symbol);
+        params.put("interval",interval);
+        params.put("limit",limit);
 
-    public void execute(){
-        VolleySingleton.getInstance(mContext).addToRequestQueue(mRequest);
+        RequestManager mRequest =new RequestManager<ArrayList<String>,Map<String,String>>(Request.Method.GET,
+                VolleySingleton.getInstance(mContext).getApiUrlWithPathV1("klines/"),params,errorListener
+        ,responseListener,gsonJsonParser);
+
+       execute(mRequest);
+    }
+
+
+    public void execute(RequestManager mRequest){
+            VolleySingleton.getInstance(mContext).addToRequestQueue(mRequest);
     }
 
 }

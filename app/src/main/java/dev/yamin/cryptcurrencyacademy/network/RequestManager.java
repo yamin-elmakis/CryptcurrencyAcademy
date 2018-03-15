@@ -55,17 +55,15 @@ public class RequestManager<T ,R> extends Request<T> {
 
     /**
      * Ctor
-     * @param context
      * @param method
      * @param url
      * @param requestBody
      * @param listener
      * @param rListener
      */
-    public RequestManager(Context context, int method, String url, R requestBody, Response.ErrorListener listener, Response.Listener<T> rListener, GsonJsonParser<T,R> converter) {
+    public RequestManager(int method, String url, R requestBody, Response.ErrorListener listener, Response.Listener<T> rListener, GsonJsonParser<T,R> converter) {
         super(method, url, listener);
 
-        mContext = context;
         mParams = null;
         mRequestBody = null;
 

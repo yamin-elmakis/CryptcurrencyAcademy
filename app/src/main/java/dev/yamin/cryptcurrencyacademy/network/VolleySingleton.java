@@ -38,15 +38,15 @@ public class VolleySingleton {
 //        CookieHandler.setDefault(cookieManager);
     }
 
-    public static String getApiUrlWithPathV1(String path) {
+    public  String getApiUrlWithPathV1(String path) {
         return API_URL_V1 + path;
     }
 
-    public static String getApiUrlWithPathV3(String path) {
+    public  String getApiUrlWithPathV3(String path) {
         return API_URL_V3 + path;
     }
 
-    public static String getServerUrl() {
+    public  String getServerUrl() {
         return SERVER_URL;
     }
 
