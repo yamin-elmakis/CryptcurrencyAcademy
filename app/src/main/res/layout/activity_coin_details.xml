@@ -6,4 +6,12 @@
     android:layout_height="match_parent"
     tools:context="dev.yamin.cryptcurrencyacademy.details.CoinDetailsActivity">
 
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/details_line_chart"
+        android:layout_width="match_parent"
+        android:layout_marginEnd="@dimen/app_margin"
+        android:layout_marginStart="@dimen/app_margin"
+        android:background="@color/colorAccent"
+        android:layout_height="350dp" />
+
 </android.support.constraint.ConstraintLayout>
