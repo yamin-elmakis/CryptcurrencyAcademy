@@ -5,4 +5,13 @@ package dev.yamin.cryptcurrencyacademy.utils;
  */
 
 public class NotificationCenter {
+
+    private static final NotificationCenter ourInstance = new NotificationCenter();
+
+    static NotificationCenter getInstance() {return ourInstance;}
+
+    private NotificationCenter(){
+
+    }
+
 }
