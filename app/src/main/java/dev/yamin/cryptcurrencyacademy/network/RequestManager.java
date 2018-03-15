@@ -1,7 +1,6 @@
 package dev.yamin.cryptcurrencyacademy.network;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -24,10 +23,6 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
-import lib.yamin.easylog.EasyLog;
-
-import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by yuval on 09/01/2018.
@@ -201,9 +196,6 @@ public class RequestManager<T ,R> extends Request<T> {
         if (getMethod() == Method.GET) {
             url += "?" + getParamsAsString();
         }
-
-        EasyLog.e(url);
-
         return url;
     }
 
