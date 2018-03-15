@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import dev.yamin.cryptcurrencyacademy.network.POJOS.KLines;
+import dev.yamin.cryptcurrencyacademy.network.POJOS.KLinesList;
 import lib.yamin.easylog.EasyLog;
 
 /**
@@ -44,7 +46,7 @@ public class RequestBuilder{
 
         EasyLog.e( VolleySingleton.getInstance(mContext).getApiUrlWithPathV1("klines"));
 
-        RequestManager mRequest =new RequestManager<ArrayList<String>,Map<String,String>>(Request.Method.GET,
+        RequestManager mRequest =new RequestManager<ArrayList<KLines>,Map<String,String>>(Request.Method.GET,
                 VolleySingleton.getInstance(mContext).getApiUrlWithPathV1("klines"),params,errorListener
         ,responseListener,gsonJsonParser);
 

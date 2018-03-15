@@ -201,9 +201,6 @@ public class RequestManager<T ,R> extends Request<T> {
         if (getMethod() == Method.GET) {
             url += "?" + getParamsAsString();
         }
-
-        EasyLog.e(url);
-
         return url;
     }
 
