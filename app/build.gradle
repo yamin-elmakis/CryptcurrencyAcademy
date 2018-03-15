@@ -44,4 +44,6 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 
     implementation 'com.github.yamin-elmakis:EasyLog:v1.5'
+
+
 }

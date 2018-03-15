@@ -1,6 +1,7 @@
 package dev.yamin.cryptcurrencyacademy.utils;
 
 import android.graphics.Color;
+import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -57,6 +58,35 @@ public class AppUtils {
         return random.nextInt(max - min + 1) + min;
     }
 
+    public long StringToLong(String longStr) {
+        if (TextUtils.isEmpty(longStr))
+            return -1;
+        try {
+            return Long.parseLong(longStr);
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+    }
+
+    public int StringToInt(String intStr) {
+        if (TextUtils.isEmpty(intStr))
+            return -1;
+        try {
+            return Integer.parseInt(intStr);
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+    }
+
+    public float StringToFloat(String floatStr) {
+        if (TextUtils.isEmpty(floatStr))
+            return -1;
+        try {
+            return Float.parseFloat(floatStr);
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+    }
 
     public static String getFullDateTime(long timeInMillis) {
         timeInMillis *= 60;
