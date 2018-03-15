@@ -41,5 +41,7 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:${glideVersion}"
     annotationProcessor "com.github.bumptech.glide:compiler:${glideVersion}"
 
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+
     implementation 'com.github.yamin-elmakis:EasyLog:v1.5'
 }
