@@ -1,6 +1,7 @@
 package dev.yamin.cryptcurrencyacademy.base;
 
 import android.app.Application;
+import android.content.Context;
 
 import java.util.Locale;
 
@@ -14,6 +15,14 @@ import lib.yamin.easylog.EasyLogFormatter;
 
 public class App extends Application {
 
+    private static Context context;
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        context = base;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -24,5 +33,9 @@ public class App extends Application {
                 return String.format(Locale.getDefault(), "%s.%s()[%d] => ", classname, methodName, lineNumber);
             }
         });
+    }
+
+    public static Context getContext() {
+        return context;
     }
 }
