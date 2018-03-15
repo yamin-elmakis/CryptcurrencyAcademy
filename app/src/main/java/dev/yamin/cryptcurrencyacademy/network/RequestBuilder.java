@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import lib.yamin.easylog.EasyLog;
+
 /**
  * Created by yuval on 09/01/2018.
  */
@@ -40,8 +42,10 @@ public class RequestBuilder{
         params.put("interval",interval);
         params.put("limit",limit);
 
+        EasyLog.e( VolleySingleton.getInstance(mContext).getApiUrlWithPathV1("klines"));
+
         RequestManager mRequest =new RequestManager<ArrayList<String>,Map<String,String>>(Request.Method.GET,
-                VolleySingleton.getInstance(mContext).getApiUrlWithPathV1("klines/"),params,errorListener
+                VolleySingleton.getInstance(mContext).getApiUrlWithPathV1("klines"),params,errorListener
         ,responseListener,gsonJsonParser);
 
        execute(mRequest);

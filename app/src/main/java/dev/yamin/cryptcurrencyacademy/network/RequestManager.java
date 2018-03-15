@@ -25,6 +25,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import lib.yamin.easylog.EasyLog;
+
 import static android.content.Context.MODE_PRIVATE;
 
 /**
@@ -199,6 +201,9 @@ public class RequestManager<T ,R> extends Request<T> {
         if (getMethod() == Method.GET) {
             url += "?" + getParamsAsString();
         }
+
+        EasyLog.e(url);
+
         return url;
     }
 
