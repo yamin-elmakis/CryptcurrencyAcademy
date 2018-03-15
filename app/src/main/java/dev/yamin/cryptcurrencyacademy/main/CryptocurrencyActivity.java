@@ -14,6 +14,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +24,12 @@ import dev.yamin.cryptcurrencyacademy.R;
 import dev.yamin.cryptcurrencyacademy.alerts.AlertsFragment;
 import dev.yamin.cryptcurrencyacademy.base.BaseActivity;
 import dev.yamin.cryptcurrencyacademy.my.coins.CoinsFragment;
+import dev.yamin.cryptcurrencyacademy.network.GsonJsonParser;
+import dev.yamin.cryptcurrencyacademy.network.POJOS.KLines;
+import dev.yamin.cryptcurrencyacademy.network.POJOS.KLinesList;
+import dev.yamin.cryptcurrencyacademy.network.RequestBuilder;
+import dev.yamin.cryptcurrencyacademy.utils.AppUtils;
+import lib.yamin.easylog.EasyLog;
 
 public class CryptocurrencyActivity extends BaseActivity implements CoinsFragment.OnFragmentInteractionListener,AlertsFragment.OnFragmentInteractionListener {
 
@@ -96,6 +105,13 @@ public class CryptocurrencyActivity extends BaseActivity implements CoinsFragmen
         return true;
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //RequestBuilder.getInstance(this).GenerateKLinesRequest("LTCUSDT","5m","5",this,this,null);
+    }
 
 
 }
