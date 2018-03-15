@@ -26,11 +26,12 @@ import dev.yamin.cryptcurrencyacademy.base.BaseActivity;
 import dev.yamin.cryptcurrencyacademy.my.coins.CoinsFragment;
 import dev.yamin.cryptcurrencyacademy.network.GsonJsonParser;
 import dev.yamin.cryptcurrencyacademy.network.POJOS.KLines;
+import dev.yamin.cryptcurrencyacademy.network.POJOS.KLinesList;
 import dev.yamin.cryptcurrencyacademy.network.RequestBuilder;
 import dev.yamin.cryptcurrencyacademy.utils.AppUtils;
 import lib.yamin.easylog.EasyLog;
 
-public class CryptocurrencyActivity extends BaseActivity implements CoinsFragment.OnFragmentInteractionListener,AlertsFragment.OnFragmentInteractionListener, Response.ErrorListener, Response.Listener, GsonJsonParser {
+public class CryptocurrencyActivity extends BaseActivity implements CoinsFragment.OnFragmentInteractionListener,AlertsFragment.OnFragmentInteractionListener {
 
     private Toolbar toolbar;
     private ViewPager viewPager;
@@ -109,28 +110,8 @@ public class CryptocurrencyActivity extends BaseActivity implements CoinsFragmen
     protected void onResume() {
         super.onResume();
 
-        RequestBuilder.getInstance(this).GenerateKLinesRequest("LTCUSDT","5m","5",this,this,this);
+        //RequestBuilder.getInstance(this).GenerateKLinesRequest("LTCUSDT","5m","5",this,this,null);
     }
 
-    @Override
-    public void onErrorResponse(VolleyError error) {
-        EasyLog.d(error);
-    }
-
-    @Override
-    public void onResponse(Object response) {
-           EasyLog.d(response);
-    }
-
-
-    @Override
-    public Object parseJsonToObj(String data) {
-        return AppUtils.getObjectFromStr(data, KLines.class);
-    }
-
-    @Override
-    public String parseObjToJson(Object obj) {
-        return null;
-    }
 
 }
