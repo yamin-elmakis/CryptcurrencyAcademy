@@ -3,89 +3,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="dev.yamin.cryptcurrencyacademy.alerts.EditAlertActivity">
+    android:layout_height="wrap_content">
 
-
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/alert_app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        >
-
-
-
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:gravity="center_horizontal"
-            android:textColor="#000000"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            tools:text="BITCOIN (BTC)" />
-
-
-    </android.support.design.widget.AppBarLayout>
-<Space
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
-
-
-
-    <TextView
-        android:id="@+id/edit_value"
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:fontFamily="sans-serif"
-        android:textStyle="normal"
-        android:textColor="#8b000000"
-        tools:text=" $11,511.80"
-        app:layout_constraintEnd_toStartOf="parent"
+        android:layout_height="wrap_content">
 
-
-        />
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-        android:layout_marginRight="130dp"
-        >
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:fontFamily="sans-serif"
-        android:textStyle="bold"
-        android:textColor="#d0021b"
-        android:gravity="center_horizontal"
-        tools:text="-0.07%"
-
-
-
-        />
+        <ImageView
+            android:id="@+id/coin_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="20dp"
+            android:layout_marginStart="144dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.925"
+            tools:src="@drawable/" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/percent"
+            android:layout_width="51dp"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:fontFamily="sans-serif"
-            android:textStyle="normal"
-            android:textColor="#4a4a4a"
-            android:gravity="center_horizontal"
-            tools:text="1h   "
-            android:layout_marginLeft="10dp"
-            />
+            android:layout_centerInParent="true"
+            android:layout_marginStart="104dp"
+            android:textColor="#d0021b"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="-0.07%" />
 
-</LinearLayout>
+    </RelativeLayout>
 
+    <TextView
 
-
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="28dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center_horizontal"
+        android:textColor="#4a4a4a"
+        android:textSize="18sp"
+        android:textStyle="normal"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="214dp"
+        tools:text="1h"
+        tools:ignore="MissingConstraints" />
 
 
 </android.support.constraint.ConstraintLayout>
