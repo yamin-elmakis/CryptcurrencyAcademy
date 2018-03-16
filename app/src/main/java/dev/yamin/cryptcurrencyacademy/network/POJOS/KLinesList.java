@@ -8,4 +8,12 @@ import java.util.ArrayList;
 
 public class KLinesList {
     ArrayList<KLines> kLinesArrayList;
+
+    public ArrayList<KLines> getkLinesArrayList() {
+        return kLinesArrayList;
+    }
+
+    public void setkLinesArrayList(ArrayList<KLines> kLinesArrayList) {
+        this.kLinesArrayList = kLinesArrayList;
+    }
 }

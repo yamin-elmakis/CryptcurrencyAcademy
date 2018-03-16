@@ -6,6 +6,8 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
@@ -13,18 +15,28 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import dev.yamin.cryptcurrencyacademy.R;
 import dev.yamin.cryptcurrencyacademy.base.BaseActivity;
+import dev.yamin.cryptcurrencyacademy.network.GsonJsonParser;
+import dev.yamin.cryptcurrencyacademy.network.POJOS.KLines;
+import dev.yamin.cryptcurrencyacademy.network.POJOS.KLinesList;
+import dev.yamin.cryptcurrencyacademy.network.RequestBuilder;
 import dev.yamin.cryptcurrencyacademy.utils.AppUtils;
 import lib.yamin.easylog.EasyLog;
 
-public class CoinDetailsActivity extends BaseActivity {
+public class CoinDetailsActivity extends BaseActivity implements
+        Response.Listener<KLinesList>, Response.ErrorListener, GsonJsonParser<KLinesList, Object> {
 
     public static final String ARG_COIN = "arg_coin_symbol";
+    public static final String  INTERVAL_H = "1h";
+    public static final String  INTERVAL_D = "1d";
+    public static final String  INTERVAL_W = "1w";
+    public static final String  INTERVAL_M = "1M";
     private LineChart lineChart;
 
     @Override
@@ -44,7 +56,7 @@ public class CoinDetailsActivity extends BaseActivity {
         }
 
         EasyLog.e(coinSymbol);
-//        RequestBuilder.getInstance(this).GenerateKLinesRequest(coinSymbol, );
+        RequestBuilder.getInstance(this).GenerateKLinesRequest(coinSymbol, INTERVAL_H, "150", this, this, this);
     }
 
     private void chartSetup() {
@@ -149,4 +161,32 @@ public class CoinDetailsActivity extends BaseActivity {
         lineChart.invalidate();
     }
 
+    @Override
+    public void onResponse(KLinesList response) {
+        EasyLog.e(response);
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        EasyLog.e(error);
+    }
+
+    @Override
+    public KLinesList parseJsonToObj(String data) {
+        KLinesList item = null;
+        if (data != null) {
+            EasyLog.e("data: " + data);
+            ArrayList<KLines> kLines = AppUtils.getObjectFromStr(data, new TypeToken<ArrayList<KLines>>() {
+            }.getType());
+            item = new KLinesList();
+            item.setkLinesArrayList(kLines);
+            EasyLog.e(kLines.size());
+        }
+        return item;
+    }
+
+    @Override
+    public String parseObjToJson(Object obj) {
+        return null;
+    }
 }
