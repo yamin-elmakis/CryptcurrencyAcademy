@@ -40,7 +40,7 @@ public class AlertAdapter extends RecyclerViewAdapter<CoinAlertItem> {
                 String name = DataUtils.PairToName(item.getSymbol());
                 coinName.setText(name);
                 ImageView coinSymbol = (ImageView) viewHolder.getView(R.id.coin_image);
-                int symbol = DataUtils.imagebySymbol(DataUtils.PairToSymbol(item.getSymbol()));
+                int symbol = DataUtils.imageBySymbol(DataUtils.PairToSymbol(item.getSymbol()));
                 coinSymbol.setImageResource(symbol);
 
 

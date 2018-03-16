@@ -46,7 +46,7 @@ public class CoinsAdapter extends RecyclerViewAdapter<Coin24Hr> {
             coinName.setText(name);
             coinPrice.setText(item.getLastPrice() + (DataUtils.symbolToName(DataUtils.Bitcoin).equals(name) ? "$" : " BTC"));
             coinPercent.setText(item.getPriceChangePercent() + " %");
-            int symbol = DataUtils.imagebySymbol(DataUtils.PairToSymbol(item.getSymbol()));
+            int symbol = DataUtils.imageBySymbol(DataUtils.PairToSymbol(item.getSymbol()));
             coinSymbol.setImageResource(symbol);
 
             if (percent < 0) {

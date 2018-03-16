@@ -62,6 +62,7 @@ public class CoinDetailsActivity extends BaseActivity implements
 
     private void chartSetup() {
         lineChart = findViewById(R.id.details_line_chart);
+        lineChart.setBackgroundResource(android.R.color.white);
         lineChart.getDescription().setEnabled(false);
         lineChart.setPinchZoom(true);
         lineChart.setHorizontalScrollBarEnabled(false);
@@ -79,7 +80,7 @@ public class CoinDetailsActivity extends BaseActivity implements
 
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setLabelCount(7, false);
+        xAxis.setLabelCount(6, false);
         xAxis.setValueFormatter(new IAxisValueFormatter() {
 
             public String getFormattedValue(float value, AxisBase axis) {
@@ -127,12 +128,12 @@ public class CoinDetailsActivity extends BaseActivity implements
             set1.setCubicIntensity(0.2f);
             //set1.setDrawFilled(true);
             set1.setDrawCircles(false);
-            set1.setLineWidth(1.8f);
-            set1.setHighLightColor(ContextCompat.getColor(this, R.color.colorAccent));
+            set1.setLineWidth(0.5f);
+            set1.setHighLightColor(ContextCompat.getColor(this, android.R.color.black));
             set1.setHighlightLineWidth(3);
             set1.setHighlightEnabled(true);
-            set1.setColor(ContextCompat.getColor(this, R.color.colorPrimary));
-            set1.setFillColor(ContextCompat.getColor(this, R.color.colorPrimary));
+            set1.setColor(ContextCompat.getColor(this, R.color.colorGraph));
+            set1.setFillColor(ContextCompat.getColor(this, R.color.colorGraph));
             set1.setFillAlpha(200);
 //            set1.setFillFormatter(new IFillFormatter() {
 //                @Override

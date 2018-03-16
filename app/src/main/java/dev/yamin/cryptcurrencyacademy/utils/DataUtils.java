@@ -74,7 +74,7 @@ public class DataUtils {
     }
 
     @DrawableRes
-    public static int imagebySymbol(String symbol) {
+    public static int imageBySymbol(String symbol) {
         if (TextUtils.isEmpty(symbol))
             return R.drawable.ic_bitcoin; // fix
         switch (symbol) {
