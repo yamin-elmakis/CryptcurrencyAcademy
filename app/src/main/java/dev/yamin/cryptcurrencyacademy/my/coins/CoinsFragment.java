@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import dev.yamin.cryptcurrencyacademy.Adapters.RecyclerViewAdapter;
 import dev.yamin.cryptcurrencyacademy.R;
 import dev.yamin.cryptcurrencyacademy.base.BaseFragment;
 
@@ -17,6 +18,7 @@ public class CoinsFragment extends BaseFragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private RecyclerView mRecyclerView;
+    private RecyclerViewAdapter mAdapter;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -52,6 +54,7 @@ public class CoinsFragment extends BaseFragment {
         View rootView = inflater.inflate(R.layout.fragment_coins, container, false);
 
         mRecyclerView = rootView.findViewById(R.id.recyclerView);
+        mAdapter = new CoinsAdapter
         return rootView;
     }
 

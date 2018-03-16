@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import dev.yamin.cryptcurrencyacademy.Adapters.RecyclerViewAdapter;
@@ -33,13 +34,25 @@ class CoinsAdapter extends RecyclerViewAdapter<Coin24Hr> {
     @Override
     protected void bindView(Coin24Hr item, RecyclerViewAdapter.ViewHolder viewHolder) {
             if(item != null){
+                double percent = Double.parseDouble(item.getPriceChangePercent());
+
                 TextView coinName = (TextView) viewHolder.getView(R.id.coin_name);
                 TextView coinPrice = (TextView) viewHolder.getView(R.id.coin_price);
                 TextView coinPercent = (TextView) viewHolder.getView(R.id.percent);
 
+                ImageView coinImage = (ImageView) viewHolder.getView(R.id.coin_image);
+
                 coinName.setText(item.getSymbol());
                 coinPrice.setText("$" + item.getLastPrice());
-                coinPercent.setText(item.());
+                coinPercent.setText(item.getPriceChangePercent());
+
+                if(percent < 0){
+                    coinImage.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_arrow_down));
+                }
+                else{
+                    coinImage.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_arrow_up));
+
+                }
 
             }
 
