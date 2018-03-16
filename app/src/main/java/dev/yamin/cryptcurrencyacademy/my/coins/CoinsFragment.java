@@ -3,22 +3,38 @@ package dev.yamin.cryptcurrencyacademy.my.coins;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.google.gson.Gson;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
+import dev.yamin.cryptcurrencyacademy.Adapters.CoinsAdapter;
 import dev.yamin.cryptcurrencyacademy.Adapters.RecyclerViewAdapter;
 import dev.yamin.cryptcurrencyacademy.R;
 import dev.yamin.cryptcurrencyacademy.base.BaseFragment;
+import dev.yamin.cryptcurrencyacademy.network.GsonJsonParser;
+import dev.yamin.cryptcurrencyacademy.network.POJOS.Coin24Hr;
+import dev.yamin.cryptcurrencyacademy.network.RequestBuilder;
 
-public class CoinsFragment extends BaseFragment {
+public class CoinsFragment extends BaseFragment implements Response.ErrorListener, Response.Listener<Coin24Hr>,GsonJsonParser<Coin24Hr,Object> {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
     private RecyclerView mRecyclerView;
     private RecyclerViewAdapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -54,7 +70,13 @@ public class CoinsFragment extends BaseFragment {
         View rootView = inflater.inflate(R.layout.fragment_coins, container, false);
 
         mRecyclerView = rootView.findViewById(R.id.recyclerView);
-        mAdapter = new CoinsAdapter
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setHasFixedSize(true);
+
+        mAdapter = new CoinsAdapter(getContext(),null);
+        mRecyclerView.setAdapter(mAdapter);
+
         return rootView;
     }
 
@@ -80,6 +102,43 @@ public class CoinsFragment extends BaseFragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        RequestBuilder.getInstance(getContext()).GenerateCoin24HrRequest("LTCUSDT",this,this,this);
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+
+    }
+
+
+    @Override
+    public void onResponse(Coin24Hr response) {
+        mAdapter.reset();
+        ArrayList<Coin24Hr> coin24HrArrayList = new ArrayList<Coin24Hr>();
+        coin24HrArrayList.add(response);
+        mAdapter.addAll(coin24HrArrayList);
+    }
+
+    @Override
+    public Coin24Hr parseJsonToObj(String data) {
+        Coin24Hr item = null;
+        if(data != null){
+            JsonParser parser = new JsonParser();
+            Type dataType;
+            Gson gson = new Gson();
+            item = gson.fromJson(data,Coin24Hr.class);
+        }
+        return item;
+    }
+
+    @Override
+    public String parseObjToJson(Object obj) {
+        return null;
     }
 
     public interface OnFragmentInteractionListener {

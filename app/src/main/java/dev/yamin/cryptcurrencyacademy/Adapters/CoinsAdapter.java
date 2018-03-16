@@ -16,7 +16,7 @@ import dev.yamin.cryptcurrencyacademy.network.POJOS.Coin24Hr;
  * Created by yuval on 16/03/2018.
  */
 
-class CoinsAdapter extends RecyclerViewAdapter<Coin24Hr> {
+public class CoinsAdapter extends RecyclerViewAdapter<Coin24Hr> {
 
     public CoinsAdapter(Context context, OnViewHolderClick<Coin24Hr> listener) {
         super(context, listener);
@@ -40,7 +40,7 @@ class CoinsAdapter extends RecyclerViewAdapter<Coin24Hr> {
                 TextView coinPrice = (TextView) viewHolder.getView(R.id.coin_price);
                 TextView coinPercent = (TextView) viewHolder.getView(R.id.percent);
 
-                ImageView coinImage = (ImageView) viewHolder.getView(R.id.coin_image);
+                ImageView coinImage = (ImageView) viewHolder.getView(R.id.coin_arrow);
 
                 coinName.setText(item.getSymbol());
                 coinPrice.setText("$" + item.getLastPrice());
