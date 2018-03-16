@@ -29,6 +29,8 @@ public class CoinDetailsActivity extends BaseActivity {
         setContentView(R.layout.activity_coin_details);
 
         chartSetup();
+
+//        Intent getIntent();
     }
 
     private void chartSetup() {

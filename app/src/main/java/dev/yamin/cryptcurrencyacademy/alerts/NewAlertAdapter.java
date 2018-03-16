@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -13,13 +14,13 @@ import lib.yamin.easylog.EasyLog;
 
 public class NewAlertAdapter extends RecyclerView.Adapter<NewAlertAdapter.ViewHolder> {
 
-    private final List<String> mValues;
-    private final NewAlertFragmentDialog.OnAlertCoinSelected mListener;
+    private final List<String> values;
+    private final OnAlertCoinSelectedListener listener;
 
-    public NewAlertAdapter(List<String> items, NewAlertFragmentDialog.OnAlertCoinSelected listener) {
-        mValues = items;
-        mListener = listener;
-        EasyLog.e("items: "+mValues.size());
+    public NewAlertAdapter(List<String> items, OnAlertCoinSelectedListener listener) {
+        this.values = items;
+        this.listener = listener;
+        EasyLog.e("items: "+values.size());
     }
 
     @Override
@@ -31,7 +32,7 @@ public class NewAlertAdapter extends RecyclerView.Adapter<NewAlertAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.bind(mValues.get(position));
+        holder.bind(values.get(position));
 //        holder.mItem = mValues.get(position);
 //        holder.mIdView.setText(mValues.get(position).id);
 //        holder.mContentView.setText(mValues.get(position).content);
@@ -48,28 +49,35 @@ public class NewAlertAdapter extends RecyclerView.Adapter<NewAlertAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return values.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        final View mView;
+        final ImageView ivImage;
+        final TextView tvName;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            tvName = view.findViewById(R.id.item_new_alert_tv);
+            ivImage = view.findViewById(R.id.item_new_alert_iv);
+            mView.setOnClickListener(this);
         }
 
         public void bind(String data) {
-            mIdView.setText(data);
-            mContentView.setText(data);
+            tvName.setText(data);
+//            mContentView.setText(data);
         }
+
         @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+        public void onClick(View v) {
+            if (listener != null)
+                listener.OnAlertCoinSelected(values.get(getAdapterPosition()));
         }
+    }
+
+    public interface OnAlertCoinSelectedListener {
+        void OnAlertCoinSelected(String data);
     }
 }
