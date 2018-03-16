@@ -25,5 +25,5 @@ public interface CoinAlertDao {
     void insertAll(CoinAlertItem... coinAlertItems);
 
     @Delete
-    void delete(CoinAlertItem coinAlertItem);
+    void deleteAll(CoinAlertItem... coinAlertItems);
 }

@@ -70,4 +70,15 @@ public class CoinAlertItem {
     public void setId(int id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "CoinAlertItem{" +
+                "id=" + id +
+                ", symbol='" + symbol + '\'' +
+                ", price='" + price + '\'' +
+                ", maxPrice='" + maxPrice + '\'' +
+                ", minPrice='" + minPrice + '\'' +
+                '}';
+    }
 }
