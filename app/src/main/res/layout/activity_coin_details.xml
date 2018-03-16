@@ -13,5 +13,4 @@
         android:layout_marginStart="@dimen/app_margin"
         android:background="@color/colorAccent"
         android:layout_height="350dp" />
-
 </android.support.constraint.ConstraintLayout>

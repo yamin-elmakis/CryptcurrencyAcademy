@@ -4,10 +4,13 @@
     android:layout_height="match_parent"
     tools:context="dev.yamin.cryptcurrencyacademy.my.coins.CoinsFragment">
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="hello Coins fragment" />
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
 
 
 </FrameLayout>
