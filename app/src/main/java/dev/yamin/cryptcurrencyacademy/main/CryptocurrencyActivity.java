@@ -2,8 +2,6 @@ package dev.yamin.cryptcurrencyacademy.main;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,48 +9,36 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import dev.yamin.cryptcurrencyacademy.R;
 import dev.yamin.cryptcurrencyacademy.alerts.AlertsFragment;
+import dev.yamin.cryptcurrencyacademy.alerts.job.JobDispatcherManager;
 import dev.yamin.cryptcurrencyacademy.base.BaseActivity;
 import dev.yamin.cryptcurrencyacademy.my.coins.CoinsFragment;
-import dev.yamin.cryptcurrencyacademy.network.GsonJsonParser;
-import dev.yamin.cryptcurrencyacademy.network.POJOS.KLines;
-import dev.yamin.cryptcurrencyacademy.network.POJOS.KLinesList;
-import dev.yamin.cryptcurrencyacademy.network.RequestBuilder;
-import dev.yamin.cryptcurrencyacademy.utils.AppUtils;
 import lib.yamin.easylog.EasyLog;
 
-public class CryptocurrencyActivity extends BaseActivity implements CoinsFragment.OnFragmentInteractionListener,AlertsFragment.OnFragmentInteractionListener  {
+public class CryptocurrencyActivity extends BaseActivity implements
+        CoinsFragment.OnFragmentInteractionListener,
+        AlertsFragment.OnFragmentInteractionListener {
 
-    private Toolbar toolbar;
     private ViewPager viewPager;
     private TabLayout tabLayout;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // test done
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
 
-
-        viewPager =  findViewById(R.id.main_viewpager);
+        viewPager = findViewById(R.id.main_viewpager);
         setupViewPager(viewPager);
 
-      tabLayout = findViewById(R.id.main_tabs);
+        tabLayout = findViewById(R.id.main_tabs);
         tabLayout.setupWithViewPager(viewPager);
-
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -75,7 +61,6 @@ public class CryptocurrencyActivity extends BaseActivity implements CoinsFragmen
             super(manager);
         }
 
-
         @Override
         public Fragment getItem(int position) {
             return mFragmentList.get(position);
@@ -95,7 +80,6 @@ public class CryptocurrencyActivity extends BaseActivity implements CoinsFragmen
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
-
     }
 
         @Override
@@ -105,13 +89,13 @@ public class CryptocurrencyActivity extends BaseActivity implements CoinsFragmen
         return true;
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
-
-        //RequestBuilder.getInstance(this).GenerateKLinesRequest("LTCUSDT","5m","5",this,this,null);
+        EasyLog.e();
+        JobDispatcherManager.getInstance().dispatchJob();
+//        NewAlertFragmentDialog editNameDialog = new NewAlertFragmentDialog();
+//        editNameDialog.show(getSupportFragmentManager(), "fragment_edit_name");
+//        RequestBuilder.getInstance(this).GenerateKLinesRequest("LTCUSDT","5m","5",this,this,this);
     }
-
-
 }

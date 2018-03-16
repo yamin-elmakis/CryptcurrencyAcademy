@@ -23,6 +23,14 @@
         </activity>
         <activity android:name=".details.CoinDetailsActivity" />
         <activity android:name=".alerts.EditAlertActivity"/>
+
+        <service
+            android:exported="false"
+            android:name=".alerts.job.AlertJobDispatcher">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
