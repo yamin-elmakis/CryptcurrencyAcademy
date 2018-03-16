@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import lib.yamin.easylog.EasyLog;
+
 /**
  * Created by yuvalmetal on 27/10/2017.
  */
@@ -120,6 +122,7 @@ public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<Recycl
     }
 
     public void addAll(List<T> list) {
+        EasyLog.d(list);
         mDataSet.addAll(list);
         notifyDataSetChanged();
     }

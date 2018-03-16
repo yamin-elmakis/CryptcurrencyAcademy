@@ -39,17 +39,20 @@ public class CoinsAdapter extends RecyclerViewAdapter<Coin24Hr> {
             TextView coinPrice = (TextView) viewHolder.getView(R.id.coin_price);
             TextView coinPercent = (TextView) viewHolder.getView(R.id.percent);
 
-            ImageView coinImage = (ImageView) viewHolder.getView(R.id.coin_arrow);
+            ImageView coinArrowImage = (ImageView) viewHolder.getView(R.id.coin_arrow);
+            ImageView coinSymbol = (ImageView) viewHolder.getView(R.id.coin_image);
 
             String name = DataUtils.PairToName(item.getSymbol());
             coinName.setText(name);
             coinPrice.setText(item.getLastPrice() + (DataUtils.symbolToName(DataUtils.Bitcoin).equals(name) ? "$" : " BTC"));
             coinPercent.setText(item.getPriceChangePercent() + " %");
+            int symbol = DataUtils.imagebySymbol(DataUtils.PairToSymbol(item.getSymbol()));
+            coinSymbol.setImageResource(symbol);
 
             if (percent < 0) {
-                coinImage.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_arrow_down));
+                coinArrowImage.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_arrow_down));
             } else {
-                coinImage.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_arrow_up));
+                coinArrowImage.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_arrow_up));
             }
         }
     }
