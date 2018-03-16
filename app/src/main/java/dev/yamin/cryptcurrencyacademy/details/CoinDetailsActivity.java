@@ -1,7 +1,10 @@
 package dev.yamin.cryptcurrencyacademy.details;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -21,6 +24,7 @@ import lib.yamin.easylog.EasyLog;
 
 public class CoinDetailsActivity extends BaseActivity {
 
+    public static final String ARG_COIN = "arg_coin_symbol";
     private LineChart lineChart;
 
     @Override
@@ -30,7 +34,17 @@ public class CoinDetailsActivity extends BaseActivity {
 
         chartSetup();
 
-//        Intent getIntent();
+        Intent intent = getIntent();
+        String coinSymbol = intent.getStringExtra(ARG_COIN);
+        if (TextUtils.isEmpty(coinSymbol)) {
+            Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
+            finish();
+            EasyLog.e("finish");
+            return;
+        }
+
+        EasyLog.e(coinSymbol);
+//        RequestBuilder.getInstance(this).GenerateKLinesRequest(coinSymbol, );
     }
 
     private void chartSetup() {

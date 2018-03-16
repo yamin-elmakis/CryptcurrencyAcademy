@@ -16,7 +16,6 @@ import java.util.List;
 
 import dev.yamin.cryptcurrencyacademy.R;
 import dev.yamin.cryptcurrencyacademy.alerts.AlertsFragment;
-import dev.yamin.cryptcurrencyacademy.alerts.NewAlertActivity;
 import dev.yamin.cryptcurrencyacademy.base.BaseActivity;
 import dev.yamin.cryptcurrencyacademy.details.CoinDetailsActivity;
 import dev.yamin.cryptcurrencyacademy.my.coins.CoinsFragment;
@@ -56,8 +55,12 @@ public class CryptocurrencyActivity extends BaseActivity implements
 
     @Override
     public void OnCoinSelected(String coin) {
-        Intent intent = new Intent(this, NewAlertActivity.class);
-        startActivityForResult(intent, SELECT_COIN_REQUEST);
+//        Intent intent = new Intent(this, NewAlertActivity.class);
+//        startActivityForResult(intent, SELECT_COIN_REQUEST);
+        EasyLog.e(coin);
+        Intent detailsIntent = new Intent(this, CoinDetailsActivity.class);
+//                detailsIntent.putExtra()
+        startActivity(detailsIntent);
     }
 
     class ViewPagerAdapter extends FragmentStatePagerAdapter {
@@ -115,9 +118,7 @@ public class CryptocurrencyActivity extends BaseActivity implements
         if (requestCode == SELECT_COIN_REQUEST) {
             if(resultCode == Activity.RESULT_OK){
                 String result=data.getStringExtra("result");
-                Intent detailsIntent = new Intent(this, CoinDetailsActivity.class);
-//                detailsIntent.putExtra()
-                startActivity(detailsIntent);
+                EasyLog.e(result);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 EasyLog.e("RESULT_CANCELED");
