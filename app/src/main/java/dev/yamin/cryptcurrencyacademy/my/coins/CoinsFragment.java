@@ -1,7 +1,6 @@
 package dev.yamin.cryptcurrencyacademy.my.coins;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,10 +10,7 @@ import android.view.ViewGroup;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
-import com.google.gson.JsonParser;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import dev.yamin.cryptcurrencyacademy.Adapters.CoinsAdapter;
@@ -24,6 +20,8 @@ import dev.yamin.cryptcurrencyacademy.base.BaseFragment;
 import dev.yamin.cryptcurrencyacademy.network.GsonJsonParser;
 import dev.yamin.cryptcurrencyacademy.network.POJOS.Coin24Hr;
 import dev.yamin.cryptcurrencyacademy.network.RequestBuilder;
+import dev.yamin.cryptcurrencyacademy.utils.AppUtils;
+import dev.yamin.cryptcurrencyacademy.utils.DataUtils;
 import lib.yamin.easylog.EasyLog;
 
 public class CoinsFragment extends BaseFragment implements Response.ErrorListener, Response.Listener<Coin24Hr>,
@@ -32,22 +30,7 @@ public class CoinsFragment extends BaseFragment implements Response.ErrorListene
     private RecyclerView mRecyclerView;
     private RecyclerViewAdapter mAdapter;
 
-    private static final String BTC = "BTC";
-
     ArrayList<Coin24Hr> coin24HrArrayList = new ArrayList<Coin24Hr>();
-
-//
-//    BTC - Bitcoin
-//    ETH - Ethereum
-//    XRP - Ripple
-//    BCH - Bitcoin Cash
-//    XMR - Monero
-//    DASH - Dash
-//    NEO - Neo
-//    ZEC - ZCash
-//    STEEM - Steem
-
-    String[] arr = {"LTC", "BTC", "ETH", "XRP", "BCH", "XMR", "DASH", "NEO", "ZEC", "STEEM"};
 
     private OnCoinSelectedListener listener;
 
@@ -86,13 +69,6 @@ public class CoinsFragment extends BaseFragment implements Response.ErrorListene
         return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (listener != null) {
-            listener.OnCoinSelected("");
-        }
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -113,8 +89,9 @@ public class CoinsFragment extends BaseFragment implements Response.ErrorListene
     public void onStart() {
         super.onStart();
         coin24HrArrayList.clear();
-        for (String item : arr) {
-            RequestBuilder.getInstance(getContext()).GenerateCoin24HrRequest(item + BTC, this, this, this);
+        ArrayList<String> coins = DataUtils.getSupportedCoins();
+        for (String item : coins) {
+            RequestBuilder.getInstance(getContext()).GenerateCoin24HrRequest(DataUtils.symbolToPair(item), this, this, this);
         }
     }
 
@@ -134,10 +111,7 @@ public class CoinsFragment extends BaseFragment implements Response.ErrorListene
     public Coin24Hr parseJsonToObj(String data) {
         Coin24Hr item = null;
         if (data != null) {
-            JsonParser parser = new JsonParser();
-            Type dataType;
-            Gson gson = new Gson();
-            item = gson.fromJson(data, Coin24Hr.class);
+            item = AppUtils.getObjectFromStr(data, Coin24Hr.class);
         }
         return item;
     }

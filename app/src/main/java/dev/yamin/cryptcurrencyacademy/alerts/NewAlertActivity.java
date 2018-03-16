@@ -25,7 +25,7 @@ public class NewAlertActivity extends BaseActivity implements NewAlertAdapter.On
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(new NewAlertAdapter(AlertCoinsContent.ITEMS, this));
 
-        int space = (int) (7* Resources.getSystem().getDisplayMetrics().density);
+        int space = (int) (5 * Resources.getSystem().getDisplayMetrics().density);
         SpacesItemDecoration itemDecoration = new SpacesItemDecoration(space);
         itemDecoration.setFirstTop(space);
         recyclerView.addItemDecoration(itemDecoration);
