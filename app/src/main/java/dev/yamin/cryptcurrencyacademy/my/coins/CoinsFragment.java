@@ -34,7 +34,7 @@ public class CoinsFragment extends BaseFragment implements Response.ErrorListene
 
     private static final String BTC = "BTC";
 
-    ArrayList<Coin24Hr> coin24HrArrayList = new ArrayList<Coin24Hr>();
+    ArrayList<Coin24Hr> coin24HrArrayList = new ArrayList<>();
 
 //
 //    BTC - Bitcoin

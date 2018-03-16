@@ -5,11 +5,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import dev.yamin.cryptcurrencyacademy.Adapters.CoinsAdapter;
+import dev.yamin.cryptcurrencyacademy.Adapters.RecyclerViewAdapter;
 import dev.yamin.cryptcurrencyacademy.R;
 import dev.yamin.cryptcurrencyacademy.base.BaseFragment;
 import dev.yamin.cryptcurrencyacademy.main.CryptocurrencyActivity;
@@ -30,6 +34,10 @@ public class AlertsFragment extends BaseFragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private RecyclerView mRecyclerView;
+    private RecyclerViewAdapter mAdapter;
+
 
     public AlertsFragment() {
         // Required empty public constructor
@@ -57,7 +65,16 @@ public class AlertsFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_alerts, container, false);
+        View rootView =  inflater.inflate(R.layout.fragment_alerts, container, false);
+        mRecyclerView = rootView.findViewById(R.id.recyclerView);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setHasFixedSize(true);
+
+      //  mAdapter = new CoinsAdapter(getContext(), this);
+        mRecyclerView.setAdapter(mAdapter);
+
+        return rootView;
+
     }
 
     @Override
