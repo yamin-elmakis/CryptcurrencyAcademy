@@ -12,9 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
+import dev.yamin.cryptcurrencyacademy.Adapters.AlertAdapter;
 import dev.yamin.cryptcurrencyacademy.Adapters.CoinsAdapter;
 import dev.yamin.cryptcurrencyacademy.Adapters.RecyclerViewAdapter;
 import dev.yamin.cryptcurrencyacademy.R;
+import dev.yamin.cryptcurrencyacademy.alerts.Room.AppDatabase;
+import dev.yamin.cryptcurrencyacademy.alerts.Room.CoinAlertItem;
 import dev.yamin.cryptcurrencyacademy.base.BaseFragment;
 import dev.yamin.cryptcurrencyacademy.main.CryptocurrencyActivity;
 import dev.yamin.cryptcurrencyacademy.utils.NotificationCenter;
@@ -60,6 +65,7 @@ public class AlertsFragment extends BaseFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        AppDatabase.getAppDatabase(getContext()).coinAlertDao().insertAll(new CoinAlertItem("Bitcoin","0.005","0.0012","0.000153"));
     }
 
     @Override
@@ -70,9 +76,9 @@ public class AlertsFragment extends BaseFragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setHasFixedSize(true);
 
-      //  mAdapter = new CoinsAdapter(getContext(), this);
+        mAdapter = new AlertAdapter(getContext(), null);
         mRecyclerView.setAdapter(mAdapter);
-
+        mAdapter.addAll(AppDatabase.getAppDatabase(getContext()).coinAlertDao().getAll());
         return rootView;
 
     }

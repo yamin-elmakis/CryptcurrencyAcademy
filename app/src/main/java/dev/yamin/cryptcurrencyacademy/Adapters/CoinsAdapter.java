@@ -25,9 +25,9 @@ public class CoinsAdapter extends RecyclerViewAdapter<Coin24Hr> {
     @Override
     protected View createView(Context context, ViewGroup viewGroup, int viewType) {
         // create a new view
-        View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.item_coin_view, viewGroup, false);
-        // set the view's size, margins, paddings and layout parameters
+    View v = LayoutInflater.from(viewGroup.getContext())
+            .inflate(R.layout.item_coin_view, viewGroup, false);
+    // set the view's size, margins, paddings and layout parameters
 
         return v;    }
 
