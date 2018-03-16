@@ -36,7 +36,24 @@ public class CoinsFragment extends BaseFragment implements Response.ErrorListene
     private RecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    // TODO: Rename and change types of parameters
+    private static final String BTC = "BTC";
+
+    ArrayList<Coin24Hr> coin24HrArrayList = new ArrayList<Coin24Hr>();
+
+//
+//    BTC - Bitcoin
+//    ETH - Ethereum
+//    XRP - Ripple
+//    BCH - Bitcoin Cash
+//    XMR - Monero
+//    DASH - Dash
+//    NEO - Neo
+//    ZEC - ZCash
+//    STEEM - Steem
+
+      String[] arr = {"LTC","BTC","ETH","XRP","BCH","XMR","DASH","NEO","ZEC","STEEM"};
+
+      // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -107,7 +124,11 @@ public class CoinsFragment extends BaseFragment implements Response.ErrorListene
     @Override
     public void onStart() {
         super.onStart();
-        RequestBuilder.getInstance(getContext()).GenerateCoin24HrRequest("LTCUSDT",this,this,this);
+        coin24HrArrayList.clear();
+        for ( String item:
+             arr) {
+            RequestBuilder.getInstance(getContext()).GenerateCoin24HrRequest(item + BTC,this,this,this);
+        }
     }
 
     @Override
@@ -118,9 +139,8 @@ public class CoinsFragment extends BaseFragment implements Response.ErrorListene
 
     @Override
     public void onResponse(Coin24Hr response) {
-        mAdapter.reset();
-        ArrayList<Coin24Hr> coin24HrArrayList = new ArrayList<Coin24Hr>();
         coin24HrArrayList.add(response);
+        mAdapter.reset();
         mAdapter.addAll(coin24HrArrayList);
     }
 
