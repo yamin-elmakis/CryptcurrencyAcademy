@@ -4,18 +4,22 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import dev.yamin.cryptcurrencyacademy.R;
 import dev.yamin.cryptcurrencyacademy.alerts.AlertsFragment;
+import dev.yamin.cryptcurrencyacademy.alerts.EditAlertActivity;
+import dev.yamin.cryptcurrencyacademy.alerts.NewAlertActivity;
 import dev.yamin.cryptcurrencyacademy.base.BaseActivity;
 import dev.yamin.cryptcurrencyacademy.details.CoinDetailsActivity;
 import dev.yamin.cryptcurrencyacademy.my.coins.CoinsFragment;
@@ -23,10 +27,10 @@ import lib.yamin.easylog.EasyLog;
 
 public class CryptocurrencyActivity extends BaseActivity implements
         CoinsFragment.OnCoinSelectedListener,
-        AlertsFragment.OnFragmentInteractionListener {
+        AlertsFragment.OnFragmentInteractionListener, View.OnClickListener {
 
     public static final int SELECT_COIN_REQUEST = 110;
-
+    private FloatingActionButton floatingActionButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +43,9 @@ public class CryptocurrencyActivity extends BaseActivity implements
 
         TabLayout tabLayout = findViewById(R.id.main_tabs);
         tabLayout.setupWithViewPager(viewPager);
+
+        floatingActionButton = findViewById(R.id.add_alert);
+        floatingActionButton.setOnClickListener(this);
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -63,6 +70,12 @@ public class CryptocurrencyActivity extends BaseActivity implements
         startActivity(detailsIntent);
     }
 
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(this, NewAlertActivity.class);
+        startActivityForResult(intent,RESULT_OK);
+    }
+
     class ViewPagerAdapter extends FragmentStatePagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
@@ -73,6 +86,12 @@ public class CryptocurrencyActivity extends BaseActivity implements
 
         @Override
         public Fragment getItem(int position) {
+            if(position == 1){
+                floatingActionButton.show();
+            }
+            else{
+                floatingActionButton.hide();
+            }
             return mFragmentList.get(position);
         }
 
