@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import dev.yamin.cryptcurrencyacademy.network.POJOS.Coin24Hr;
 import dev.yamin.cryptcurrencyacademy.network.POJOS.KLines;
 import dev.yamin.cryptcurrencyacademy.network.POJOS.KLinesList;
 import lib.yamin.easylog.EasyLog;
@@ -51,6 +52,17 @@ public class RequestBuilder{
         ,responseListener,gsonJsonParser);
 
        execute(mRequest);
+    }
+
+    public void GenerateCoin24HrRequest(String symbol,Response.Listener responseListener, Response.ErrorListener errorListener,GsonJsonParser gsonJsonParser){
+        Map<String,String> params = new HashMap<>();
+        params.put("symbol",symbol);
+
+        RequestManager mRequest =new RequestManager<Coin24Hr,Object>(Request.Method.GET,
+                VolleySingleton.getInstance(mContext).getApiUrlWithPathV1("ticker/24hr"),params,errorListener
+                ,responseListener,gsonJsonParser);
+
+        execute(mRequest);
     }
 
 

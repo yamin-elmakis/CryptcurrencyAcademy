@@ -57,13 +57,13 @@ public class Coin24Hr {
     @SerializedName("quoteVolume")
     @Expose
     private String quoteVolume;
-    @SerializedName("openTime")
-    @Expose
-    private Integer openTime;
-    @SerializedName("closeTime")
-    @Expose
-    private Integer closeTime;
-    @SerializedName("firstId")
+//    @SerializedName("openTime")
+//    @Expose
+//    private Integer openTime;
+//    @SerializedName("closeTime")
+//    @Expose
+//    private Integer closeTime;
+//    @SerializedName("firstId")
     @Expose
     private Integer firstId;
     @SerializedName("lastId")
@@ -201,21 +201,21 @@ public class Coin24Hr {
         this.quoteVolume = quoteVolume;
     }
 
-    public Integer getOpenTime() {
-        return openTime;
-    }
-
-    public void setOpenTime(Integer openTime) {
-        this.openTime = openTime;
-    }
-
-    public Integer getCloseTime() {
-        return closeTime;
-    }
-
-    public void setCloseTime(Integer closeTime) {
-        this.closeTime = closeTime;
-    }
+//    public Integer getOpenTime() {
+//        return openTime;
+//    }
+//
+//    public void setOpenTime(Integer openTime) {
+//        this.openTime = openTime;
+//    }
+//
+//    public Integer getCloseTime() {
+//        return closeTime;
+//    }
+//
+//    public void setCloseTime(Integer closeTime) {
+//        this.closeTime = closeTime;
+//    }
 
     public Integer getFirstId() {
         return firstId;
