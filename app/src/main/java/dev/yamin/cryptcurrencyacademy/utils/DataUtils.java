@@ -1,9 +1,12 @@
 package dev.yamin.cryptcurrencyacademy.utils;
 
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
+
+import dev.yamin.cryptcurrencyacademy.R;
 
 /**
  * Created by Yamin on 3/16/2018.
@@ -50,7 +53,7 @@ public class DataUtils {
                 return "Ethereum";
             case Ripple:
                 return "Ripple";
-                case Bitcoin_Cash:
+            case Bitcoin_Cash:
                 return "Bitcoin Cash";
             case Litecoin:
                 return "Litecoin";
@@ -66,6 +69,34 @@ public class DataUtils {
                 return "Steem";
             default:
                 return null;
+        }
+    }
+
+    @DrawableRes
+    public static int imagebySymbol(String symbol) {
+        switch (symbol) {
+            case Bitcoin:
+                return R.drawable.ic_bitcoin;
+            case Ethereum:
+                return R.drawable.ic_etherium;
+            case Ripple:
+                return R.drawable.ic_ripple;
+            case Bitcoin_Cash:
+                return R.drawable.ic_bitcoin; // fix
+            case Litecoin:
+                return R.drawable.ic_litecoin;
+            case Neo:
+                return R.drawable.ic_neo;
+            case Monero:
+                return R.drawable.ic_montro;
+            case Dash:
+                return R.drawable.ic_dash;
+            case ZCash:
+                return R.drawable.ic_zcash;
+            case Steem:
+                return R.drawable.ic_steem;
+            default:
+                return R.drawable.ic_bitcoin; // fix
         }
     }
 
@@ -129,6 +160,44 @@ public class DataUtils {
 
             case Steem+ Bitcoin:
                 return symbolToName(Steem);
+
+            default:
+                return null;
+        }
+    }
+
+    @Nullable
+    public static String PairToSymbol(String pair) {
+        switch (pair) {
+            case Bitcoin + USDT:
+                return Bitcoin;
+
+                case Ethereum + Bitcoin:
+                return (Ethereum);
+
+            case Ripple + Bitcoin:
+                return (Ripple);
+
+                case Bitcoin_Cash + Bitcoin:
+                return (Bitcoin_Cash);
+
+            case Litecoin+ Bitcoin:
+                return (Litecoin);
+
+            case Neo + Bitcoin:
+                return (Neo);
+
+            case Monero+ Bitcoin:
+                return (Monero);
+
+            case Dash+ Bitcoin:
+                return (Dash);
+
+            case ZCash+ Bitcoin:
+                return (ZCash);
+
+            case Steem+ Bitcoin:
+                return (Steem);
 
             default:
                 return null;
