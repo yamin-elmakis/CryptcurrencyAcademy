@@ -10,12 +10,23 @@
         android:id="@+id/edit_app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.NoActionBar">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/edit_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:gravity="center_horizontal"
+            tools:text="BITCOIN (BTC)"
+            />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -82,12 +93,6 @@
                 android:background="@color/colorLine"
                 app:layout_constraintTop_toBottomOf="@id/edit_percent_name" />
 
-            <Switch
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toStartOf="@id/tv_above_price"
-                app:layout_constraintTop_toBottomOf="@id/row_image" />
-
             <TextView
                 android:id="@+id/tv_above_price"
                 android:layout_width="wrap_content"
@@ -95,13 +100,24 @@
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center_horizontal"
                 android:letterSpacing="0.04"
-                android:paddingTop="21dp"
+                android:layout_marginTop="21dp"
                 android:textColor="#7e8083"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 app:layout_constraintStart_toStartOf="@id/tv_edit_price"
-                app:layout_constraintTop_toBottomOf="@id/row_image"
+                app:layout_constraintTop_toBottomOf="@id/edit_percent_name"
                 tools:text="Above Price : 	" />
+
+            <Switch
+                android:id="@+id/switch_above_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@+id/tv_above_price"
+                app:layout_constraintTop_toTopOf="@+id/tv_above_price"
+
+
+               />
+
 
             <TextView
                 android:id="@+id/above_price_dollar"
@@ -114,12 +130,12 @@
                 android:textSize="20sp"
                 android:textStyle="normal"
                 app:layout_constraintStart_toEndOf="@id/tv_above_price"
-                app:layout_constraintTop_toBottomOf="@id/time"
+              app:layout_constraintTop_toTopOf="@id/tv_above_price"
                 tools:text="$14,000" />
 
             <SeekBar
                 android:id="@+id/seek_bar_above"
-                android:layout_width="22dp"
+                android:layout_width="124dp"
                 android:layout_height="22dp"
                 android:layout_marginTop="37dp"
                 app:layout_constraintStart_toStartOf="@id/tv_above_price"
@@ -127,46 +143,125 @@
 
             <Button
                 android:id="@+id/above_price_minus"
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:text="-"
                 app:layout_constraintStart_toStartOf="@id/above_price_dollar"
                 app:layout_constraintTop_toBottomOf="@id/above_price_dollar" />
 
             <Button
                 android:id="@+id/above_price_plus"
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:text="+"
                 app:layout_constraintStart_toEndOf="@id/above_price_minus"
                 app:layout_constraintTop_toBottomOf="@id/above_price_dollar" />
 
+            <View
+                android:id="@+id/edit_view_1"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorLine"
+                app:layout_constraintTop_toBottomOf="@id/seek_bar_above" />
+
+            <TextView
+                android:id="@+id/edit_below_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-medium"
+                android:textStyle="normal"
+                android:textColor="#7e8083"
+                android:letterSpacing="0.04"
+                android:gravity="center_horizontal"
+                tools:text="Below Price : 	"
+                app:layout_constraintTop_toBottomOf="@id/edit_view_1"
+                app:layout_constraintStart_toStartOf="@id/tv_above_price"
+                />
+
+            <Switch
+                android:id="@+id/switch_below_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@+id/edit_below_price"
+                app:layout_constraintTop_toTopOf="@+id/edit_below_price"
+
+
+                />
+
+
+            <TextView
+                android:id="@+id/below_price_dollar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif-medium"
+                android:textStyle="normal"
+                android:textColor="#7e8083"
+                android:letterSpacing="0.04"
+                android:gravity="center_horizontal"
+                tools:text="$10,000"
+                app:layout_constraintStart_toEndOf="@id/edit_below_price"
+                app:layout_constraintTop_toTopOf="@id/edit_below_price"
+              />
+
+            <SeekBar
+                android:id="@+id/seek_bar_below"
+                android:layout_width="124dp"
+                android:layout_height="22dp"
+                android:layout_marginTop="37dp"
+                app:layout_constraintStart_toStartOf="@id/edit_below_price"
+                app:layout_constraintTop_toBottomOf="@id/edit_below_price" />
 
             <Button
+                android:id="@+id/below_price_minus"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/below_price_dollar"
+                app:layout_constraintTop_toBottomOf="@id/below_price_dollar" />
+
+            <Button
+                android:id="@+id/below_price_plus"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/below_price_minus"
+                app:layout_constraintTop_toBottomOf="@id/below_price_dollar" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorLine"
+                app:layout_constraintTop_toBottomOf="@id/seek_bar_below" />
+
+            <Button
+                android:id="@+id/save_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#2196f3"
                 android:fontFamily="sans-serif"
                 android:gravity="center_horizontal"
-                android:letterSpacing="0.04"
                 android:textColor="#ffffff"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                tools:text="SAVE" />
+                android:text="SAVE"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/seek_bar_below"
+                />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center_horizontal"
-                android:letterSpacing="0.04"
                 android:textColor="#9b9b9b"
                 android:textSize="14sp"
                 android:textStyle="normal"
-                app:layout_constraintBottom_toTopOf="parent"
+                android:layout_marginTop="22dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="parent"
-                tools:text="DISCARD" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/save_button"
+                android:text="DISCARD" />
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 </android.support.constraint.ConstraintLayout>
