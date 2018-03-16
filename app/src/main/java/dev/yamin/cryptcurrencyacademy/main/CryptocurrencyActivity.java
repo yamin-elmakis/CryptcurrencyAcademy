@@ -31,7 +31,7 @@ import dev.yamin.cryptcurrencyacademy.network.RequestBuilder;
 import dev.yamin.cryptcurrencyacademy.utils.AppUtils;
 import lib.yamin.easylog.EasyLog;
 
-public class CryptocurrencyActivity extends BaseActivity implements CoinsFragment.OnFragmentInteractionListener,AlertsFragment.OnFragmentInteractionListener {
+public class CryptocurrencyActivity extends BaseActivity implements CoinsFragment.OnFragmentInteractionListener,AlertsFragment.OnFragmentInteractionListener  {
 
     private Toolbar toolbar;
     private ViewPager viewPager;
