@@ -24,6 +24,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import lib.yamin.easylog.EasyLog;
+
 /**
  * Created by yuval on 09/01/2018.
  */
@@ -185,8 +187,10 @@ public class RequestManager<T ,R> extends Request<T> {
 
     @Override
     protected Map<String, String> getParams() throws AuthFailureError {
-        if (mParams != null)
+        if (mParams != null){
+            EasyLog.e(mParams);
             return mParams;
+        }
         return super.getParams();
     }
 
@@ -196,6 +200,7 @@ public class RequestManager<T ,R> extends Request<T> {
         if (getMethod() == Method.GET) {
             url += "?" + getParamsAsString();
         }
+        EasyLog.e(url);
         return url;
     }
 

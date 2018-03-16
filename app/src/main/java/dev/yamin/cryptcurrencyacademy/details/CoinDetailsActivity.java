@@ -15,23 +15,17 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import dev.yamin.cryptcurrencyacademy.R;
 import dev.yamin.cryptcurrencyacademy.base.BaseActivity;
 import dev.yamin.cryptcurrencyacademy.network.GsonJsonParser;
 import dev.yamin.cryptcurrencyacademy.network.POJOS.KLines;
-import dev.yamin.cryptcurrencyacademy.network.POJOS.KLinesList;
 import dev.yamin.cryptcurrencyacademy.network.RequestBuilder;
 import dev.yamin.cryptcurrencyacademy.utils.AppUtils;
 import lib.yamin.easylog.EasyLog;
@@ -104,26 +98,19 @@ public class CoinDetailsActivity extends BaseActivity implements
     public void onResume() {
         super.onResume();
 
-        setChartData();
+//        ArrayList<Entry> yVals= new ArrayList<>();
+//        Calendar calendar = Calendar.getInstance();
+//        long millis = calendar.getTimeInMillis();
+//        for (int i = 0; i < 125; i++) {
+//            millis += 1000 * 60 * 60 * 24;
+//            float val = (float) (AppUtils.randomInt(20, 30));
+//            float sec = (float) (millis / 1000) / 60;
+//            yVals.add(new Entry(sec, val));
+//        }
+//        setChartData(yVals);
     }
 
-    public void setChartData() {
-        ArrayList<Entry> yVals = new ArrayList<>();
-
-        Calendar calendar = Calendar.getInstance();
-        long millis = calendar.getTimeInMillis();
-        for (int i = 0; i < 125; i++) {
-            millis += 1000 * 60 * 60 * 24;
-            float val = (float) (AppUtils.randomInt(20, 30));
-//            yVals.add(new Entry(i, val));
-
-//            EasyLog.e("i: "+i+" M: "+millis);
-            float sec = (float) (millis / 1000) / 60;
-//            EasyLog.e("i: "+i+" S: "+sec);
-            EasyLog.e(val);
-            yVals.add(new Entry(sec, val));
-        }
-
+    public void setChartData(ArrayList<Entry> yVals) {
         LineDataSet set1;
 
         if (lineChart.getData() != null &&
@@ -171,6 +158,13 @@ public class CoinDetailsActivity extends BaseActivity implements
     @Override
     public void onResponse(ArrayList<KLines> response) {
         EasyLog.e(response);
+        ArrayList<Entry> yVals = new ArrayList<>();
+        for (KLines kLines : response) {
+            float sec = (float) (kLines.getOpenTime()/ 1000) / 60;
+            yVals.add(new Entry(sec, kLines.getOpenPrice()));
+        }
+        setChartData(yVals);
+
     }
 
     @Override
@@ -184,18 +178,12 @@ public class CoinDetailsActivity extends BaseActivity implements
         try {
             JSONArray jsonArray = new JSONArray(data);
             for(int i = 0; i < jsonArray.length();i++){
-                JsonParser parser = new JsonParser();
-                JsonElement mJson = null;
-                try {
-                    mJson = parser.parse(jsonArray.getJSONObject(i).toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                Gson gson = new Gson();
+                ArrayList<String> item = AppUtils.getObjectFromStr(jsonArray.getJSONArray(i).toString(), new TypeToken<ArrayList<String>>() {
+                }.getType());
 
-                KLines item = gson.fromJson(mJson, KLines.class);
-
-                _items.add(item);
+                KLines kLines = new KLines();
+                kLines.setArrayList(item);
+                _items.add(kLines);
             }
         } catch (JSONException e) {
             e.printStackTrace();

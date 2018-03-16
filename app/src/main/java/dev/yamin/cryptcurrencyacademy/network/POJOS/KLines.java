@@ -1,8 +1,5 @@
 package dev.yamin.cryptcurrencyacademy.network.POJOS;
 
-import android.support.annotation.Nullable;
-import android.support.annotation.PluralsRes;
-
 import java.util.ArrayList;
 
 /**
@@ -25,14 +22,13 @@ public class KLines {
 
     ArrayList<String> arrayList;
 
-    public boolean isValid(int validSize){
-        if(arrayList == null){
+    public boolean isValid(int validSize) {
+        if (arrayList == null) {
             return false;
         }
 
-        if(arrayList.size() < validSize)
-        {
-            return  false;
+        if (arrayList.size() < validSize) {
+            return false;
         }
 
         return true;
@@ -40,8 +36,26 @@ public class KLines {
 
     public long getOpenTime(){
         if(isValid(OPEN_TIME)) {
-            return Long.parseLong(arrayList.get(0));
+            return Long.parseLong(arrayList.get(OPEN_TIME - 1));
         }
         return -1;
+    }
+
+    public float getOpenPrice() {
+        if(isValid(OPEN)) {
+            return Float.parseFloat(arrayList.get(OPEN - 1));
+        }
+        return -1;
+    }
+
+    public void setArrayList(ArrayList<String> arrayList) {
+        this.arrayList = arrayList;
+    }
+
+    @Override
+    public String toString() {
+        return "KLines{" +
+                "arrayList=" + (arrayList == null ? "NULL" : arrayList.size()) +
+                '}';
     }
 }

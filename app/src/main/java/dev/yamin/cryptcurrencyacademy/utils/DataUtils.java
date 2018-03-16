@@ -3,6 +3,7 @@ package dev.yamin.cryptcurrencyacademy.utils;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import java.util.ArrayList;
 
@@ -74,6 +75,8 @@ public class DataUtils {
 
     @DrawableRes
     public static int imagebySymbol(String symbol) {
+        if (TextUtils.isEmpty(symbol))
+            return R.drawable.ic_bitcoin; // fix
         switch (symbol) {
             case Bitcoin:
                 return R.drawable.ic_bitcoin;
@@ -190,7 +193,7 @@ public class DataUtils {
             case Monero+ Bitcoin:
                 return (Monero);
 
-            case Dash+ Bitcoin:
+            case Dash + Bitcoin:
                 return (Dash);
 
             case ZCash+ Bitcoin:
