@@ -1,5 +1,7 @@
 package dev.yamin.cryptcurrencyacademy.main;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -14,16 +16,17 @@ import java.util.List;
 
 import dev.yamin.cryptcurrencyacademy.R;
 import dev.yamin.cryptcurrencyacademy.alerts.AlertsFragment;
+import dev.yamin.cryptcurrencyacademy.alerts.NewAlertActivity;
 import dev.yamin.cryptcurrencyacademy.base.BaseActivity;
+import dev.yamin.cryptcurrencyacademy.details.CoinDetailsActivity;
 import dev.yamin.cryptcurrencyacademy.my.coins.CoinsFragment;
 import lib.yamin.easylog.EasyLog;
 
 public class CryptocurrencyActivity extends BaseActivity implements
-        CoinsFragment.OnFragmentInteractionListener,
+        CoinsFragment.OnCoinSelectedListener,
         AlertsFragment.OnFragmentInteractionListener {
 
-    private ViewPager viewPager;
-    private TabLayout tabLayout;
+    public static final int SELECT_COIN_REQUEST = 110;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +35,10 @@ public class CryptocurrencyActivity extends BaseActivity implements
         Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
 
-        viewPager = findViewById(R.id.main_viewpager);
+        ViewPager viewPager = findViewById(R.id.main_viewpager);
         setupViewPager(viewPager);
 
-        tabLayout = findViewById(R.id.main_tabs);
+        TabLayout tabLayout = findViewById(R.id.main_tabs);
         tabLayout.setupWithViewPager(viewPager);
     }
 
@@ -49,6 +52,12 @@ public class CryptocurrencyActivity extends BaseActivity implements
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public void OnCoinSelected(String coin) {
+        Intent intent = new Intent(this, NewAlertActivity.class);
+        startActivityForResult(intent, SELECT_COIN_REQUEST);
     }
 
     class ViewPagerAdapter extends FragmentStatePagerAdapter {
@@ -101,17 +110,19 @@ public class CryptocurrencyActivity extends BaseActivity implements
 //        RequestBuilder.getInstance(this).GenerateKLinesRequest("LTCUSDT","5m","5",this,this,this);
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (requestCode == 1) {
-//            if(resultCode == Activity.RESULT_OK){
-//                String result=data.getStringExtra("result");
-//                EasyLog.e(result);
-//            }
-//            if (resultCode == Activity.RESULT_CANCELED) {
-//                EasyLog.e("RESULT_CANCELED");
-//                //Write your code if there's no result
-//            }
-//        }
-//    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == SELECT_COIN_REQUEST) {
+            if(resultCode == Activity.RESULT_OK){
+                String result=data.getStringExtra("result");
+                Intent detailsIntent = new Intent(this, CoinDetailsActivity.class);
+//                detailsIntent.putExtra()
+                startActivity(detailsIntent);
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                EasyLog.e("RESULT_CANCELED");
+                //Write your code if there's no result
+            }
+        }
+    }
 }

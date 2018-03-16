@@ -13,7 +13,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -25,16 +24,13 @@ import dev.yamin.cryptcurrencyacademy.base.BaseFragment;
 import dev.yamin.cryptcurrencyacademy.network.GsonJsonParser;
 import dev.yamin.cryptcurrencyacademy.network.POJOS.Coin24Hr;
 import dev.yamin.cryptcurrencyacademy.network.RequestBuilder;
+import lib.yamin.easylog.EasyLog;
 
-public class CoinsFragment extends BaseFragment implements Response.ErrorListener, Response.Listener<Coin24Hr>,GsonJsonParser<Coin24Hr,Object> {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class CoinsFragment extends BaseFragment implements Response.ErrorListener, Response.Listener<Coin24Hr>,
+        GsonJsonParser<Coin24Hr, Object>, RecyclerViewAdapter.OnViewHolderClick<Coin24Hr> {
 
     private RecyclerView mRecyclerView;
     private RecyclerViewAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
 
     private static final String BTC = "BTC";
 
@@ -51,35 +47,29 @@ public class CoinsFragment extends BaseFragment implements Response.ErrorListene
 //    ZEC - ZCash
 //    STEEM - Steem
 
-      String[] arr = {"LTC","BTC","ETH","XRP","BCH","XMR","DASH","NEO","ZEC","STEEM"};
+    String[] arr = {"LTC", "BTC", "ETH", "XRP", "BCH", "XMR", "DASH", "NEO", "ZEC", "STEEM"};
 
-      // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
+    private OnCoinSelectedListener listener;
 
     public CoinsFragment() {
         // Required empty public constructor
     }
 
-      // TODO: Rename and change types and number of parameters
-    public static CoinsFragment newInstance(String param1, String param2) {
+    public static CoinsFragment newInstance() {
         CoinsFragment fragment = new CoinsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+//        Bundle args = new Bundle();
+//        args.putString(ARG_PARAM1, param1);
+//        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+//        if (getArguments() != null) {
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//            mParam2 = getArguments().getString(ARG_PARAM2);
+//        }
     }
 
     @Override
@@ -87,11 +77,10 @@ public class CoinsFragment extends BaseFragment implements Response.ErrorListene
         View rootView = inflater.inflate(R.layout.fragment_coins, container, false);
 
         mRecyclerView = rootView.findViewById(R.id.recyclerView);
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setHasFixedSize(true);
 
-        mAdapter = new CoinsAdapter(getContext(),null);
+        mAdapter = new CoinsAdapter(getContext(), this);
         mRecyclerView.setAdapter(mAdapter);
 
         return rootView;
@@ -99,43 +88,40 @@ public class CoinsFragment extends BaseFragment implements Response.ErrorListene
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+        if (listener != null) {
+            listener.OnCoinSelected("");
         }
     }
 
-   @Override
-     public void onAttach(Context context) {
-         super.onAttach(context);
-         if (context instanceof OnFragmentInteractionListener) {
-             mListener = (OnFragmentInteractionListener) context;
-         } else {
-             throw new RuntimeException(context.toString()
-                     + " must implement OnFragmentInteractionListener");
-         }
-     }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnCoinSelectedListener) {
+            listener = (OnCoinSelectedListener) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement OnCoinSelectedListener");
+        }
+    }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        listener = null;
     }
 
     @Override
     public void onStart() {
         super.onStart();
         coin24HrArrayList.clear();
-        for ( String item:
-             arr) {
-            RequestBuilder.getInstance(getContext()).GenerateCoin24HrRequest(item + BTC,this,this,this);
+        for (String item : arr) {
+            RequestBuilder.getInstance(getContext()).GenerateCoin24HrRequest(item + BTC, this, this, this);
         }
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
-
+        EasyLog.e();
     }
-
 
     @Override
     public void onResponse(Coin24Hr response) {
@@ -147,11 +133,11 @@ public class CoinsFragment extends BaseFragment implements Response.ErrorListene
     @Override
     public Coin24Hr parseJsonToObj(String data) {
         Coin24Hr item = null;
-        if(data != null){
+        if (data != null) {
             JsonParser parser = new JsonParser();
             Type dataType;
             Gson gson = new Gson();
-            item = gson.fromJson(data,Coin24Hr.class);
+            item = gson.fromJson(data, Coin24Hr.class);
         }
         return item;
     }
@@ -161,8 +147,14 @@ public class CoinsFragment extends BaseFragment implements Response.ErrorListene
         return null;
     }
 
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    @Override
+    public void onClick(View view, int position, Coin24Hr item) {
+        if (listener != null) {
+            listener.OnCoinSelected(item.getSymbol());
+        }
+    }
+
+    public interface OnCoinSelectedListener {
+        void OnCoinSelected(String coin);
     }
 }
