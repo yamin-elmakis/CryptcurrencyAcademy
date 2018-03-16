@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import dev.yamin.cryptcurrencyacademy.R;
@@ -36,7 +37,14 @@ public class AlertAdapter extends RecyclerViewAdapter<CoinAlertItem> {
                 TextView maxPrice = (TextView) viewHolder.getView(R.id.max_price);
                 TextView minPrice = (TextView) viewHolder.getView(R.id.min_price);
 
-                coinName.setText(item.getSymbol());
+                String name = DataUtils.PairToName(item.getSymbol());
+                coinName.setText(name);
+                ImageView coinSymbol = (ImageView) viewHolder.getView(R.id.coin_image);
+                int symbol = DataUtils.imagebySymbol(DataUtils.PairToSymbol(item.getSymbol()));
+                coinSymbol.setImageResource(symbol);
+
+
+
                 price.setText(item.getPrice() + (DataUtils.symbolToName(DataUtils.Bitcoin).equals(item.getSymbol()) ? "$" : " BTC"));
                 maxPrice.setText(item.getMaxPrice() + (DataUtils.symbolToName(DataUtils.Bitcoin).equals(item.getSymbol()) ? "$" : " BTC"));
                 minPrice.setText(item.getMinPrice() + (DataUtils.symbolToName(DataUtils.Bitcoin).equals(item.getSymbol()) ? "$" : " BTC"));
