@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".details.CoinDetailsActivity" />
         <activity android:name=".alerts.EditAlertActivity"/>
+        <activity android:name=".alerts.NewAlertActivity" />
 
         <service
             android:exported="false"

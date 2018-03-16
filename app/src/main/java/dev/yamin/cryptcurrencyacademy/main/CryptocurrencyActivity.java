@@ -8,14 +8,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import dev.yamin.cryptcurrencyacademy.R;
 import dev.yamin.cryptcurrencyacademy.alerts.AlertsFragment;
-import dev.yamin.cryptcurrencyacademy.alerts.job.JobDispatcherManager;
 import dev.yamin.cryptcurrencyacademy.base.BaseActivity;
 import dev.yamin.cryptcurrencyacademy.my.coins.CoinsFragment;
 import lib.yamin.easylog.EasyLog;
@@ -82,20 +80,38 @@ public class CryptocurrencyActivity extends BaseActivity implements
         }
     }
 
-        @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
         EasyLog.e();
-        JobDispatcherManager.getInstance().dispatchJob();
+
+//        RequestBuilder.getInstance(this).GenerateKLinesRequest();
+
+
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                Intent i = new Intent(CryptocurrencyActivity.this, NewAlertActivity.class);
+//                startActivityForResult(i, 1);
+//            }
+//        }, 1000);
+
 //        NewAlertFragmentDialog editNameDialog = new NewAlertFragmentDialog();
 //        editNameDialog.show(getSupportFragmentManager(), "fragment_edit_name");
 //        RequestBuilder.getInstance(this).GenerateKLinesRequest("LTCUSDT","5m","5",this,this,this);
     }
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (requestCode == 1) {
+//            if(resultCode == Activity.RESULT_OK){
+//                String result=data.getStringExtra("result");
+//                EasyLog.e(result);
+//            }
+//            if (resultCode == Activity.RESULT_CANCELED) {
+//                EasyLog.e("RESULT_CANCELED");
+//                //Write your code if there's no result
+//            }
+//        }
+//    }
 }
