@@ -59,7 +59,7 @@ public class CryptocurrencyActivity extends BaseActivity implements
 //        startActivityForResult(intent, SELECT_COIN_REQUEST);
         EasyLog.e(coin);
         Intent detailsIntent = new Intent(this, CoinDetailsActivity.class);
-//                detailsIntent.putExtra()
+        detailsIntent.putExtra(CoinDetailsActivity.ARG_COIN, coin);
         startActivity(detailsIntent);
     }
 
