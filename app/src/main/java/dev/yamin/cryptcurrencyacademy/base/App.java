@@ -1,11 +1,13 @@
 package dev.yamin.cryptcurrencyacademy.base;
 
 import android.app.Application;
+import android.arch.persistence.room.Room;
 import android.content.Context;
 
 import java.util.Locale;
 
 import dev.yamin.cryptcurrencyacademy.BuildConfig;
+import dev.yamin.cryptcurrencyacademy.alerts.Room.AppDatabase;
 import lib.yamin.easylog.EasyLog;
 import lib.yamin.easylog.EasyLogFormatter;
 
@@ -33,6 +35,8 @@ public class App extends Application {
                 return String.format(Locale.getDefault(), "%s.%s()[%d] => ", classname, methodName, lineNumber);
             }
         });
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "CoinAlertDB").build();
     }
 
     public static Context getContext() {

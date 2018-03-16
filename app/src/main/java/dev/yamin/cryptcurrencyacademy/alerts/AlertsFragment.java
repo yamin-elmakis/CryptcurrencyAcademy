@@ -5,12 +5,21 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
+import dev.yamin.cryptcurrencyacademy.Adapters.AlertAdapter;
+import dev.yamin.cryptcurrencyacademy.Adapters.CoinsAdapter;
+import dev.yamin.cryptcurrencyacademy.Adapters.RecyclerViewAdapter;
 import dev.yamin.cryptcurrencyacademy.R;
+import dev.yamin.cryptcurrencyacademy.alerts.Room.AppDatabase;
+import dev.yamin.cryptcurrencyacademy.alerts.Room.CoinAlertItem;
 import dev.yamin.cryptcurrencyacademy.base.BaseFragment;
 import dev.yamin.cryptcurrencyacademy.main.CryptocurrencyActivity;
 import dev.yamin.cryptcurrencyacademy.utils.NotificationCenter;
@@ -30,6 +39,10 @@ public class AlertsFragment extends BaseFragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private RecyclerView mRecyclerView;
+    private RecyclerViewAdapter mAdapter;
+
 
     public AlertsFragment() {
         // Required empty public constructor
@@ -52,12 +65,22 @@ public class AlertsFragment extends BaseFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        AppDatabase.getAppDatabase(getContext()).coinAlertDao().insertAll(new CoinAlertItem("Bitcoin","0.005","0.0012","0.000153"));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_alerts, container, false);
+        View rootView =  inflater.inflate(R.layout.fragment_alerts, container, false);
+        mRecyclerView = rootView.findViewById(R.id.recyclerView);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setHasFixedSize(true);
+
+        mAdapter = new AlertAdapter(getContext(), null);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.addAll(AppDatabase.getAppDatabase(getContext()).coinAlertDao().getAll());
+        return rootView;
+
     }
 
     @Override
