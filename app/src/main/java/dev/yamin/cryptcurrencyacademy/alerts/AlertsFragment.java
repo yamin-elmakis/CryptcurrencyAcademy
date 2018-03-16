@@ -65,7 +65,11 @@ public class AlertsFragment extends BaseFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        //AppDatabase.getAppDatabase(getContext()).coinAlertDao().insertAll(new CoinAlertItem("Bitcoin","0.005","0.0012","0.000153"));
+
+        //AppDatabase.getAppDatabase(getContext()).coinAlertDao().insertAll(new CoinAlertItem("BTCUSDT","0.005","0.0012","0.000153"));
+        //AppDatabase.getAppDatabase(getContext()).coinAlertDao().insertAll(new CoinAlertItem("ETHBTC","0.123","0.13","0.1"));
+
+       // AppDatabase.getAppDatabase(getContext()).coinAlertDao().deleteAll(AppDatabase.getAppDatabase(getContext()).coinAlertDao().getAll());
     }
 
     @Override

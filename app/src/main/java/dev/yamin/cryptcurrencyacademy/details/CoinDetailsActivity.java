@@ -15,8 +15,15 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -30,7 +37,7 @@ import dev.yamin.cryptcurrencyacademy.utils.AppUtils;
 import lib.yamin.easylog.EasyLog;
 
 public class CoinDetailsActivity extends BaseActivity implements
-        Response.Listener<KLinesList>, Response.ErrorListener, GsonJsonParser<KLinesList, Object> {
+        Response.Listener<ArrayList<KLines>>, Response.ErrorListener, GsonJsonParser<ArrayList<KLines>, Object> {
 
     public static final String ARG_COIN = "arg_coin_symbol";
     public static final String  INTERVAL_H = "1h";
@@ -162,7 +169,7 @@ public class CoinDetailsActivity extends BaseActivity implements
     }
 
     @Override
-    public void onResponse(KLinesList response) {
+    public void onResponse(ArrayList<KLines> response) {
         EasyLog.e(response);
     }
 
@@ -172,17 +179,28 @@ public class CoinDetailsActivity extends BaseActivity implements
     }
 
     @Override
-    public KLinesList parseJsonToObj(String data) {
-        KLinesList item = null;
-        if (data != null) {
-            EasyLog.e("data: " + data);
-            ArrayList<KLines> kLines = AppUtils.getObjectFromStr(data, new TypeToken<ArrayList<KLines>>() {
-            }.getType());
-            item = new KLinesList();
-            item.setkLinesArrayList(kLines);
-            EasyLog.e(kLines.size());
+    public ArrayList<KLines> parseJsonToObj(String data) {
+        ArrayList<KLines> _items = new ArrayList<KLines>();
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            for(int i = 0; i < jsonArray.length();i++){
+                JsonParser parser = new JsonParser();
+                JsonElement mJson = null;
+                try {
+                    mJson = parser.parse(jsonArray.getJSONObject(i).toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Gson gson = new Gson();
+
+                KLines item = gson.fromJson(mJson, KLines.class);
+
+                _items.add(item);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-        return item;
+        return _items;
     }
 
     @Override
