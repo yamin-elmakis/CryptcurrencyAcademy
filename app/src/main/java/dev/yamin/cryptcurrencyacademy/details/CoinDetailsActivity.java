@@ -15,30 +15,26 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 
 import java.util.ArrayList;
 
 import dev.yamin.cryptcurrencyacademy.R;
 import dev.yamin.cryptcurrencyacademy.base.BaseActivity;
-import dev.yamin.cryptcurrencyacademy.network.GsonJsonParser;
+import dev.yamin.cryptcurrencyacademy.network.NetworkManager;
 import dev.yamin.cryptcurrencyacademy.network.POJOS.KLines;
-import dev.yamin.cryptcurrencyacademy.network.RequestBuilder;
 import dev.yamin.cryptcurrencyacademy.utils.AppUtils;
+import dev.yamin.cryptcurrencyacademy.utils.DataUtils;
 import lib.yamin.easylog.EasyLog;
 
 public class CoinDetailsActivity extends BaseActivity implements
-        Response.Listener<ArrayList<KLines>>, Response.ErrorListener, GsonJsonParser<ArrayList<KLines>, Object> {
+        Response.Listener<ArrayList<KLines>>, Response.ErrorListener {
 
     public static final String ARG_COIN = "arg_coin_symbol";
-    public static final String  INTERVAL_H = "1h";
-    public static final String  INTERVAL_D = "1d";
-    public static final String  INTERVAL_W = "1w";
-    public static final String  INTERVAL_M = "1M";
+
     private LineChart lineChart;
+
+    @DataUtils.KLineInterval
+    private String interval;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +53,8 @@ public class CoinDetailsActivity extends BaseActivity implements
         }
 
         EasyLog.e(coinSymbol);
-        RequestBuilder.getInstance(this).GenerateKLinesRequest(coinSymbol, INTERVAL_H, "150", this, this, this);
+        interval = DataUtils.KLINE_INTERVAL_H;
+        NetworkManager.getInstance().sendKLinesRequest(coinSymbol, interval, this, this);
     }
 
     private void chartSetup() {
@@ -171,29 +168,5 @@ public class CoinDetailsActivity extends BaseActivity implements
     @Override
     public void onErrorResponse(VolleyError error) {
         EasyLog.e(error);
-    }
-
-    @Override
-    public ArrayList<KLines> parseJsonToObj(String data) {
-        ArrayList<KLines> _items = new ArrayList<KLines>();
-        try {
-            JSONArray jsonArray = new JSONArray(data);
-            for(int i = 0; i < jsonArray.length();i++){
-                ArrayList<String> item = AppUtils.getObjectFromStr(jsonArray.getJSONArray(i).toString(), new TypeToken<ArrayList<String>>() {
-                }.getType());
-
-                KLines kLines = new KLines();
-                kLines.setArrayList(item);
-                _items.add(kLines);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return _items;
-    }
-
-    @Override
-    public String parseObjToJson(Object obj) {
-        return null;
     }
 }

@@ -3,8 +3,11 @@ package dev.yamin.cryptcurrencyacademy.utils;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringDef;
 import android.text.TextUtils;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 
 import dev.yamin.cryptcurrencyacademy.R;
@@ -14,6 +17,14 @@ import dev.yamin.cryptcurrencyacademy.R;
  */
 
 public class DataUtils {
+
+    public static final String KLINE_INTERVAL_H = "1h";
+    public static final String KLINE_INTERVAL_D = "1d";
+    public static final String KLINE_INTERVAL_W = "1w";
+    public static final String KLINE_INTERVAL_M = "1M";
+    @StringDef({KLINE_INTERVAL_H, KLINE_INTERVAL_D, KLINE_INTERVAL_W, KLINE_INTERVAL_M})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface KLineInterval{}
 
     public static final String USDT = "USDT";
     public static final String Bitcoin = "BTC";

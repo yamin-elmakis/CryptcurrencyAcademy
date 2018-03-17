@@ -1,7 +1,6 @@
 package dev.yamin.cryptcurrencyacademy.utils;
 
 import android.app.Notification;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -10,7 +9,6 @@ import android.content.Intent;
 import dev.yamin.cryptcurrencyacademy.R;
 import dev.yamin.cryptcurrencyacademy.base.App;
 import dev.yamin.cryptcurrencyacademy.main.CryptocurrencyActivity;
-import lib.yamin.easylog.EasyLog;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
@@ -19,8 +17,6 @@ import static android.content.Context.NOTIFICATION_SERVICE;
  */
 
 public class NotificationCenter {
-
-
 
     private static final NotificationCenter ourInstance = new NotificationCenter();
 
