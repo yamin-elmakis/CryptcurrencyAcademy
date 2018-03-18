@@ -34,9 +34,9 @@ public class RequestBuilder{
         return mInstance;
     }
 
-    public void GenerateKLinesRequest(String symbol,String interval,String limit,Response.Listener responseListener, Response.ErrorListener errorListener,GsonJsonParser gsonJsonParser){
+    public void GenerateKLinesRequest(String coinPair,String interval,String limit,Response.Listener responseListener, Response.ErrorListener errorListener,GsonJsonParser gsonJsonParser){
         Map<String,String> params = new HashMap<>();
-        params.put("symbol",symbol);
+        params.put("symbol",coinPair);
         params.put("interval",interval);
         params.put("limit",limit);
 

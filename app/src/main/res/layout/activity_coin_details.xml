@@ -1,19 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="dev.yamin.cryptcurrencyacademy.details.CoinDetailsActivity">
 
-    <!--<ProgressBar-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content" />-->
-
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/details_line_chart"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/edit_app_bar"
         android:layout_width="match_parent"
-        android:layout_marginEnd="@dimen/app_margin"
-        android:layout_marginStart="@dimen/app_margin"
-        android:layout_height="350dp" />
-</android.support.constraint.ConstraintLayout>
+        android:layout_height="133dp"
+        android:theme="@style/AppTheme.NoActionBar">
+
+        <ImageView
+            android:id="@+id/details_iv_title"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            tools:src="@drawable/ic_dash" />
+
+        <TextView
+            android:id="@+id/details_tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:gravity="center_horizontal"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:text="BITCOIN (BTC)" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/details_tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_horizontal"
+            android:textColor="@color/black50"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="$11,511.80" />
+
+        <TextView
+            android:id="@+id/details_tv_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_horizontal"
+            android:textColor="@color/monza"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/details_tv_price"
+            tools:text="-0.07%" />
+
+        <FrameLayout
+            android:id="@+id/details_fl_chart_container"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/details_tv_change">
+
+            <ProgressBar
+                android:id="@+id/details_pb"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/details_line_chart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/app_margin"
+                android:layout_marginStart="@dimen/app_margin"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <RadioGroup
+            android:id="@+id/details_rg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:checkedButton="@+id/details_rb_hour"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/details_fl_chart_container">
+
+            <RadioButton
+                android:id="@+id/details_rb_hour"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/interval_back_selector"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:text="HOUR"
+                android:textAllCaps="true"
+                android:textColor="@drawable/interval_selector" />
+
+            <RadioButton
+                android:id="@+id/details_rb_day"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/interval_back_selector"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:text="day"
+                android:textAllCaps="true"
+                android:textColor="@drawable/interval_selector" />
+
+            <RadioButton
+                android:id="@+id/details_rb_week"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/interval_back_selector"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:text="week"
+                android:textAllCaps="true"
+                android:textColor="@drawable/interval_selector" />
+
+            <RadioButton
+                android:id="@+id/details_rb_month"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/interval_back_selector"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:text="month"
+                android:textAllCaps="true"
+                android:textColor="@drawable/interval_selector" />
+
+        </RadioGroup>
+
+    </android.support.constraint.ConstraintLayout>
+
+</LinearLayout>

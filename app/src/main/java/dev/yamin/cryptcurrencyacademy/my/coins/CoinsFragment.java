@@ -124,11 +124,11 @@ public class CoinsFragment extends BaseFragment implements Response.ErrorListene
     @Override
     public void onClick(View view, int position, Coin24Hr item) {
         if (listener != null) {
-            listener.OnCoinSelected(item.getSymbol());
+            listener.OnCoinSelected(item.getSymbol(), item.getLastPrice(), item.getPriceChangePercent());
         }
     }
 
     public interface OnCoinSelectedListener {
-        void OnCoinSelected(String coin);
+        void OnCoinSelected(String coinPair, String lastPrice, String priceChangePercent);
     }
 }

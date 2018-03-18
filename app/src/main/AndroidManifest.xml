@@ -21,7 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".details.CoinDetailsActivity" />
+        <activity
+            android:name=".details.CoinDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".alerts.EditAlertActivity">
 
         </activity>

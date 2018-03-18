@@ -4,6 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -29,37 +34,66 @@ import lib.yamin.easylog.EasyLog;
 public class CoinDetailsActivity extends BaseActivity implements
         Response.Listener<ArrayList<KLines>>, Response.ErrorListener {
 
-    public static final String ARG_COIN = "arg_coin_symbol";
+    public static final String ARG_COIN_PAIR = "arg_coin_pair";
+    public static final String ARG_COIN_PRICE = "arg_coin_price";
+    public static final String ARG_COIN_PERCENT = "arg_coin_percent";
 
     private LineChart lineChart;
+    private TextView tvTitle, tvPrice, tvPercent;
+    private ImageView ivTitle;
+    private ProgressBar progressBar;
+    private RadioGroup rgInterval;
 
     @DataUtils.KLineInterval
     private String interval;
+    private String coinName, price, percent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_coin_details);
-
-        chartSetup();
 
         Intent intent = getIntent();
-        String coinSymbol = intent.getStringExtra(ARG_COIN);
-        if (TextUtils.isEmpty(coinSymbol)) {
+        String coinPair = intent.getStringExtra(ARG_COIN_PAIR);
+        if (TextUtils.isEmpty(coinPair)) {
             Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
             finish();
             EasyLog.e("finish");
             return;
         }
 
-        EasyLog.e(coinSymbol);
+        price= intent.getStringExtra(ARG_COIN_PRICE);
+        percent= intent.getStringExtra(ARG_COIN_PERCENT);
+
+        setContentView(R.layout.activity_coin_details);
+        tvTitle = findViewById(R.id.details_tv_title);
+        ivTitle = findViewById(R.id.details_iv_title);
+        tvPrice = findViewById(R.id.details_tv_price);
+        tvPercent = findViewById(R.id.details_tv_change);
+        progressBar = findViewById(R.id.details_pb);
+        lineChart = findViewById(R.id.details_line_chart);
+        rgInterval = findViewById(R.id.details_rg);
+
+        coinName = DataUtils.PairToName(coinPair);
+        chartSetup();
+        updateCoinData();
+
+        EasyLog.e(coinPair);
         interval = DataUtils.KLINE_INTERVAL_H;
-        NetworkManager.getInstance().sendKLinesRequest(coinSymbol, interval, this, this);
+        setLoading(true);
+        NetworkManager.getInstance().sendKLinesRequest(coinPair, interval, this, this);
+    }
+
+    private void updateCoinData() {
+        String symbol = DataUtils.nameToSymbol(coinName);
+        String title = coinName + " ("+symbol+")";
+        tvTitle.setText(title);
+        ivTitle.setImageResource(DataUtils.imageBySymbol(symbol));
+        tvPrice.setText(price);
+        tvPercent.setText(percent);
     }
 
     private void chartSetup() {
-        lineChart = findViewById(R.id.details_line_chart);
-        lineChart.setBackgroundResource(android.R.color.white);
+//        lineChart.setBackgroundResource(android.R.color.white);
         lineChart.getDescription().setEnabled(false);
         lineChart.setPinchZoom(true);
         lineChart.setHorizontalScrollBarEnabled(false);
@@ -92,20 +126,10 @@ public class CoinDetailsActivity extends BaseActivity implements
         lineChart.invalidate();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-//        ArrayList<Entry> yVals= new ArrayList<>();
-//        Calendar calendar = Calendar.getInstance();
-//        long millis = calendar.getTimeInMillis();
-//        for (int i = 0; i < 125; i++) {
-//            millis += 1000 * 60 * 60 * 24;
-//            float val = (float) (AppUtils.randomInt(20, 30));
-//            float sec = (float) (millis / 1000) / 60;
-//            yVals.add(new Entry(sec, val));
-//        }
-//        setChartData(yVals);
+    private void setLoading(boolean loading) {
+        lineChart.setVisibility(loading ? View.GONE : View.VISIBLE);
+        progressBar.setVisibility((!loading) ? View.GONE : View.VISIBLE);
+        rgInterval.setEnabled(!loading);
     }
 
     public void setChartData(ArrayList<Entry> yVals) {
@@ -119,7 +143,7 @@ public class CoinDetailsActivity extends BaseActivity implements
             lineChart.notifyDataSetChanged();
         } else {
             // create a dataset and give it a type
-            set1 = new LineDataSet(yVals, "DataSet 1");
+            set1 = new LineDataSet(yVals, coinName);
 
             set1.setMode(LineDataSet.Mode.LINEAR);
             set1.setCubicIntensity(0.2f);
@@ -127,7 +151,7 @@ public class CoinDetailsActivity extends BaseActivity implements
             set1.setDrawCircles(false);
             set1.setLineWidth(0.5f);
             set1.setHighLightColor(ContextCompat.getColor(this, android.R.color.black));
-            set1.setHighlightLineWidth(3);
+            set1.setHighlightLineWidth(1);
             set1.setHighlightEnabled(true);
             set1.setColor(ContextCompat.getColor(this, R.color.colorGraph));
             set1.setFillColor(ContextCompat.getColor(this, R.color.colorGraph));
@@ -156,6 +180,7 @@ public class CoinDetailsActivity extends BaseActivity implements
     @Override
     public void onResponse(ArrayList<KLines> response) {
         EasyLog.e(response);
+        setLoading(false);
         ArrayList<Entry> yVals = new ArrayList<>();
         for (KLines kLines : response) {
             float sec = (float) (kLines.getOpenTime()/ 1000) / 60;
@@ -168,5 +193,7 @@ public class CoinDetailsActivity extends BaseActivity implements
     @Override
     public void onErrorResponse(VolleyError error) {
         EasyLog.e(error);
+        setLoading(false);
+        Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
     }
 }

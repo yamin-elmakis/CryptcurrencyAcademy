@@ -6,4 +6,16 @@
     <color name="colorAccent">#ffa726</color>
     <color name="colorLine">#979797</color>
     <color name="colorGraph">#33d0021b</color>
+
+    <color name="black50">#8a000000</color>
+    <color name="black25">#42000000</color>
+    <color name="monza">#d0021b</color>
+
+    <color name="red">#F44336</color>
+    <color name="purple">#9C27B0</color>
+    <color name="blue">#2196F3</color>
+    <color name="green">#4CAF50</color>
+    <color name="yellow">#FFEB3B</color>
+    <color name="orange">#FF9800</color>
+    <color name="grey">#9E9E9E</color>
 </resources>

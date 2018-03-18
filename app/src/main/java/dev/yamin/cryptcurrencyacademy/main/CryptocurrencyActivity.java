@@ -18,7 +18,6 @@ import java.util.List;
 
 import dev.yamin.cryptcurrencyacademy.R;
 import dev.yamin.cryptcurrencyacademy.alerts.AlertsFragment;
-import dev.yamin.cryptcurrencyacademy.alerts.EditAlertActivity;
 import dev.yamin.cryptcurrencyacademy.alerts.NewAlertActivity;
 import dev.yamin.cryptcurrencyacademy.base.BaseActivity;
 import dev.yamin.cryptcurrencyacademy.details.CoinDetailsActivity;
@@ -61,12 +60,14 @@ public class CryptocurrencyActivity extends BaseActivity implements
     }
 
     @Override
-    public void OnCoinSelected(String coin) {
+    public void OnCoinSelected(String coinPair, String lastPrice, String priceChangePercent) {
 //        Intent intent = new Intent(this, NewAlertActivity.class);
 //        startActivityForResult(intent, SELECT_COIN_REQUEST);
-        EasyLog.e(coin);
+        EasyLog.e(coinPair);
         Intent detailsIntent = new Intent(this, CoinDetailsActivity.class);
-        detailsIntent.putExtra(CoinDetailsActivity.ARG_COIN, coin);
+        detailsIntent.putExtra(CoinDetailsActivity.ARG_COIN_PAIR, coinPair);
+        detailsIntent.putExtra(CoinDetailsActivity.ARG_COIN_PERCENT, priceChangePercent);
+        detailsIntent.putExtra(CoinDetailsActivity.ARG_COIN_PRICE, lastPrice);
         startActivity(detailsIntent);
     }
 

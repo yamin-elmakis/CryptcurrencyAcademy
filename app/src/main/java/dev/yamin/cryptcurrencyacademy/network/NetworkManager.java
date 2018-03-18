@@ -34,7 +34,7 @@ public class NetworkManager {
 
     private NetworkManager() {  }
 
-    public void sendKLinesRequest(String coinSymbol, @DataUtils.KLineInterval String interval, Response.Listener responseListener, Response.ErrorListener errorListener) {
+    public void sendKLinesRequest(String coinPair, @DataUtils.KLineInterval String interval, Response.Listener responseListener, Response.ErrorListener errorListener) {
         String limit = "100";
         switch (interval) {
             case DataUtils.KLINE_INTERVAL_D:
@@ -47,7 +47,7 @@ public class NetworkManager {
                 break;
         }
 
-        RequestBuilder.getInstance(App.getContext()).GenerateKLinesRequest(coinSymbol, interval, limit, responseListener, errorListener, new GsonJsonParser<ArrayList<KLines>, Object>() {
+        RequestBuilder.getInstance(App.getContext()).GenerateKLinesRequest(coinPair, interval, limit, responseListener, errorListener, new GsonJsonParser<ArrayList<KLines>, Object>() {
 
             @Override
             public ArrayList<KLines> parseJsonToObj(String data) {
