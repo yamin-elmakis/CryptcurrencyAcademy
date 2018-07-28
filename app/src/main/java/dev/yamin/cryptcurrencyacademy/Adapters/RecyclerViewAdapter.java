@@ -45,7 +45,6 @@ public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<Recycl
                 mListener.onClick(v, getAdapterPosition(), getItem(getAdapterPosition()));
         }
 
-
         public void initViewList(int[] idList) {
             for (int id : idList)
                 initViewById(id);

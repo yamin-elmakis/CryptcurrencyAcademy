@@ -18,7 +18,7 @@ import java.util.List;
 
 import dev.yamin.cryptcurrencyacademy.R;
 import dev.yamin.cryptcurrencyacademy.alerts.AlertsFragment;
-import dev.yamin.cryptcurrencyacademy.alerts.NewAlertActivity;
+import dev.yamin.cryptcurrencyacademy.alerts.NewAlertActivity_;
 import dev.yamin.cryptcurrencyacademy.base.BaseActivity;
 import dev.yamin.cryptcurrencyacademy.details.CoinDetailsActivity;
 import dev.yamin.cryptcurrencyacademy.my.coins.CoinsFragment;
@@ -73,8 +73,9 @@ public class CryptocurrencyActivity extends BaseActivity implements
 
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(this, NewAlertActivity.class);
-        startActivityForResult(intent,RESULT_OK);
+        NewAlertActivity_.IntentBuilder_ intent = NewAlertActivity_.intent(this);
+        intent.startForResult(RESULT_OK);
+//        startActivityForResult(intent.get(),RESULT_OK);
     }
 
     class ViewPagerAdapter extends FragmentStatePagerAdapter {

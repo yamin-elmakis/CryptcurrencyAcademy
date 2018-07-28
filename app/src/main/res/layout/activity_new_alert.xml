@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:paddingEnd="16dp"
         android:paddingStart="16dp"
-        app:layoutManager="LinearLayoutManager"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         tools:context="dev.yamin.cryptcurrencyacademy.alerts.NewAlertActivity"
         tools:listitem="@layout/fragment_new_alert_item" />
 

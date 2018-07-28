@@ -27,7 +27,7 @@
         <activity android:name=".alerts.EditAlertActivity">
 
         </activity>
-        <activity android:name=".alerts.NewAlertActivity" />
+        <activity android:name=".alerts.NewAlertActivity_" />
 
         <service
             android:exported="false"
